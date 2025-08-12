@@ -50,7 +50,7 @@ function App() {
       const res = await fetch(`/api/all`);
       if (!res.ok) throw new Error('API hatası');
       const data = await res.json();
-      console.log('API Verisi:', data); // Test için, kart sorunları API'den mi kontrol et
+      console.log('API Verisi:', data); // Test için
       setAllHoroscopes(data.horoscopes || []);
     } catch (err) {
       setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
