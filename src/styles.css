@@ -1,4 +1,4 @@
-/* styles.css - Toast ortalandı, mobil çemberler için stroke ayarlandı */
+/* styles.css - Toast metni ortalandı, mobil yüzdelik yazıları siyah yapıldı */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -46,7 +46,7 @@ button:hover {
   background: #1976D2;
 }
 
-/* Toast notification: Ortalandı */
+/* Toast notification: Ortalandı, metin ortalı */
 .toast {
   position: fixed;
   top: 50%;
@@ -59,6 +59,7 @@ button:hover {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
   animation: fadeInOut 3s ease forwards;
+  text-align: center; /* Metni ortala */
 }
 
 /* Toast animasyonu */
@@ -286,6 +287,7 @@ button:hover {
   }
   .circle .label {
     font-size: 0.9em;
+    color: #222; /* Siyah, yorum yazılarıyla uyumlu */
   }
 }
 
