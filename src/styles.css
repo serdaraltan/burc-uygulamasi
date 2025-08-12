@@ -1,4 +1,4 @@
-/* styles.css - Hizalanma ve yatay boşluk düzeltildi (son sürüm) */
+/* styles.css - Mobil ikon, yüzdelik ve burç ismi görünürlüğü düzeltildi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -67,20 +67,20 @@ button:hover {
   100% { transform: rotate(360deg); }
 }
 
-/* GRID: yatay/dikey boşluk netleştirildi */
+/* GRID: yatay/dikey boşluk */
 .grid {
   display: grid;
-  gap: 30px; /* Hem yatay hem dikey boşluk */
+  gap: 30px;
   margin-top: 20px;
   align-items: stretch;
   grid-auto-rows: 1fr;
-  max-width: 100%; /* Taşmayı önle */
+  max-width: 100%;
 }
 
 /* Masaüstü (>=1024px): butonla hizalı */
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr); /* Eşit dağıtım */
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -127,6 +127,13 @@ button:hover {
   line-height: 1.2;
 }
 
+/* Mobil için burç ismi görünürlüğünü artır */
+@media (max-width: 767px) {
+  .card-title {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Hafif gölge */
+  }
+}
+
 /* Emoji biraz daha büyük görünsün */
 .card-title::first-letter {
   font-size: 1.5em;
@@ -135,7 +142,7 @@ button:hover {
 /* ---------- CARD DÜZENİ ---------- */
 .card {
   position: relative;
-  width: 100%; /* Grid kontrol etsin */
+  width: 100%;
   min-height: 220px;
   padding: 15px;
   border-radius: 12px;
@@ -244,21 +251,21 @@ button:hover {
 .circle.money { --stroke-color: #4CAF50; }
 .circle.health { --stroke-color: #00bcd4; }
 
-/* Mobil için circular stats küçült */
+/* Mobil için circular stats büyüt */
 @media (max-width: 767px) {
   .circle {
-    width: 60px;
-    height: 60px;
+    width: 70px; /* 60px -> 70px */
+    height: 70px;
   }
   .circle svg {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
   .circle circle {
-    stroke-width: 6;
+    stroke-width: 7; /* 6 -> 7 */
   }
   .circle .label {
-    font-size: 0.8em;
+    font-size: 0.9em; /* 0.8em -> 0.9em */
   }
 }
 
