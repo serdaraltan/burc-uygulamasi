@@ -52,9 +52,15 @@ function App() {
       <button onClick={fetchHoroscope}>Yorumu Getir</button>
 
 {horoscope && (
-  <div 
-    className="result" 
-    style={{ border: `2px solid ${horoscope.color}`, padding: "10px", borderRadius: "8px" }}
+  <div
+    className="result"
+    style={{
+      background: `linear-gradient(135deg, ${horoscope.color} 0%, ${horoscope.color}33 100%)`,
+      padding: "15px",
+      borderRadius: "12px",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+      marginTop: "15px"
+    }}
   >
     <h2 style={{ color: horoscope.color }}>
       {horoscope.sign} - {horoscope.date}
