@@ -1,4 +1,4 @@
-/* styles.css - card-title ve circle label masaüstü için de güncellendi */
+/* styles.css - card-title ve circle label masaüstü için düzeltildi, dropdown stili eklendi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -69,23 +69,30 @@ select, button {
   flex: 1;
 }
 
-/* Dropdown için hafif stil (ikon hizalaması) */
+/* Dropdown stili */
 select {
   font-size: 1em;
   display: flex;
   align-items: center;
-}
-
-/* Butonlar: Mor-mavi gradient */
-button {
   background: linear-gradient(135deg, #6b7280, #9333ea);
   color: white;
-  border: none;
+  border: 1px solid #9333ea;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   cursor: pointer;
 }
 
-button:hover {
-  background: #7e22ce;
+/* Dropdown seçenekleri */
+select option {
+  background: linear-gradient(135deg, #6b7280, #9333ea);
+  color: white;
+}
+
+/* Dropdown hover rengi */
+select option:hover {
+  background: #5b21b6; /* Koyu mor-mavi */
 }
 
 /* Mobil için form satırı alt alta */
@@ -197,7 +204,7 @@ button:hover {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Tüm ekranlar için kalın çerçeve */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important; /* Tüm ekranlar için kalın çerçeve */
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -309,7 +316,7 @@ button:hover {
   transform: translate(-50%, -50%);
   font-size: 1em;
   font-weight: bold;
-  color: #222; /* Tüm ekranlar için siyah */
+  color: #222 !important; /* Tüm ekranlar için siyah */
   text-align: center;
 }
 
