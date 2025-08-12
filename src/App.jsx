@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import './styles.css';
 
 function App() {
@@ -6,7 +6,6 @@ function App() {
   const [horoscope, setHoroscope] = useState(null);
   const [error, setError] = useState(null);
   const [allHoroscopes, setAllHoroscopes] = useState([]);
-  const [flippedCards, setFlippedCards] = useState({});
   const [loading, setLoading] = useState(false);
 
   const signs = [
@@ -23,26 +22,6 @@ function App() {
     { value: 'kova', label: 'Kova' },
     { value: 'balik', label: 'Balık' }
   ];
-
-  // Debounce fonksiyonu
-  const debounce = (func, wait) => {
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  // toggleFlip'i debounce ile sar
-  const toggleFlip = useCallback(
-    debounce((sign) => {
-      setFlippedCards((prev) => ({
-        ...prev,
-        [sign]: !prev[sign]
-      }));
-    }, 300),
-    []
-  );
 
   const fetchHoroscope = async () => {
     setError(null);
@@ -124,69 +103,53 @@ function App() {
           {allHoroscopes.map(h => (
             <div
               key={h.sign}
-              className={`flip-card ${flippedCards[h.sign] ? 'flipped' : ''}`}
-              onTouchStart={() => toggleFlip(h.sign)}
-              onClick={() => toggleFlip(h.sign)}
+              className="card"
+              style={{
+                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
+              }}
             >
-              <div className="flip-card-inner">
-                <div
-                  className="flip-card-front"
-                  style={{
-                    background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
-                  }}
-                >
-                  <h2 className="card-title" style={{ color: h.color }}>
-                    {h.sign}
-                  </h2>
-                  <p>{h.text}</p>
+              <h2 className="card-title" style={{ color: h.color }}>
+                {h.sign}
+              </h2>
+              <div className="circular-stats">
+                <div className="circle love">
+                  <svg>
+                    <circle cx="40" cy="40" r="35"></circle>
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="35"
+                      style={{ '--percent': h.love }}
+                    ></circle>
+                  </svg>
+                  <div className="label">❤️ {h.love}%</div>
                 </div>
-                <div
-                  className="flip-card-back"
-                  style={{
-                    background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
-                  }}
-                >
-                  <h3>Şans Yüzdeleri</h3>
-                  <div className="stats circular-stats">
-                    <div className="circle love">
-                      <svg>
-                        <circle cx="40" cy="40" r="35"></circle>
-                        <circle
-                          cx="40"
-                          cy="40"
-                          r="35"
-                          style={{ '--percent': h.love }}
-                        ></circle>
-                      </svg>
-                      <div className="label">❤️ {h.love}%</div>
-                    </div>
-                    <div className="circle money">
-                      <svg>
-                        <circle cx="40" cy="40" r="35"></circle>
-                        <circle
-                          cx="40"
-                          cy="40"
-                          r="35"
-                          style={{ '--percent': h.money }}
-                        ></circle>
-                      </svg>
-                      <div className="label">💰 {h.money}%</div>
-                    </div>
-                    <div className="circle health">
-                      <svg>
-                        <circle cx="40" cy="40" r="35"></circle>
-                        <circle
-                          cx="40"
-                          cy="40"
-                          r="35"
-                          style={{ '--percent': h.health }}
-                        ></circle>
-                      </svg>
-                      <div className="label">💪 {h.health}%</div>
-                    </div>
-                  </div>
+                <div className="circle money">
+                  <svg>
+                    <circle cx="40" cy="40" r="35"></circle>
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="35"
+                      style={{ '--percent': h.money }}
+                    ></circle>
+                  </svg>
+                  <div className="label">💰 {h.money}%</div>
+                </div>
+                <div className="circle health">
+                  <svg>
+                    <circle cx="40" cy="40" r="35"></circle>
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="35"
+                      style={{ '--percent': h.health }}
+                    ></circle>
+                  </svg>
+                  <div className="label">💪 {h.health}%</div>
                 </div>
               </div>
+              <p>{h.text}</p>
             </div>
           ))}
         </div>
