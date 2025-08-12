@@ -1,4 +1,4 @@
-/* styles.css - Mobil ve masaüstü çember boyutları korundu */
+/* styles.css - Toast notification eklendi, .error kaldırıldı */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -46,9 +46,26 @@ button:hover {
   background: #1976D2;
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: fadeInOut 3s ease forwards;
+}
+
+/* Toast animasyonu */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
 }
 
 /* Yükleme spinner'ı */

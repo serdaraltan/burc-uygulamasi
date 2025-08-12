@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './styles.css';
 
 function App() {
@@ -23,11 +23,21 @@ function App() {
     { value: 'balik', label: 'Balık' }
   ];
 
+  // Hata mesajını 3 saniye sonra temizle
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return () => clearTimeout(timer); // Temizleme
+    }
+  }, [error]);
+
   const fetchHoroscope = async () => {
     setError(null);
     setHoroscope(null);
     if (!sign) {
-      setError('Lütfen bir burç seçin.');
+      setError('Önce Burcunuzu Seçiniz');
       return;
     }
     setLoading(true);
@@ -55,9 +65,9 @@ function App() {
       }
       setAllHoroscopes(data.horoscopes);
     } catch (err) {
-      console.error('Tüm burçlar alınırken hata:', err.message); // Hata kontrolü
+      console.error('Tüm burçlar alınırken hata:', err.message);
       setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
-      setAllHoroscopes([]); // Hata durumunda boş array
+      setAllHoroscopes([]);
     } finally {
       setLoading(false);
     }
@@ -79,6 +89,7 @@ function App() {
         {loading ? 'Yükleniyor...' : 'Tüm Burçları Göster'}
       </button>
       {loading && <div className="spinner">Yükleniyor...</div>}
+      {error && <div className="toast">{error}</div>}
       {horoscope && (
         <div
           className="result"
@@ -110,7 +121,7 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)` // Düzeltildi
+                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
               }}
             >
               <h2 className="card-title" style={{ color: h.color }}>
@@ -159,7 +170,6 @@ function App() {
           ))}
         </div>
       )}
-      {error && <p className="error">{error}</p>}
     </div>
   );
 }
