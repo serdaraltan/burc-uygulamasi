@@ -1,4 +1,4 @@
-/* styles.css - Özel Renk Kartelası, dropdown siyah yazı, görünürlük korundu */
+/* styles.css - Yeni Renk Kartelası, dropdown siyah yazı, tarih bold, görünürlük korundu */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -72,6 +72,7 @@ h1 .star-icon {
   background: none;
   color: #e0e0e0 !important;
   font-size: 1.1em;
+  font-weight: bold; /* Tarih bold */
   margin-top: 5px;
   margin-bottom: 10px;
   display: block;
@@ -102,7 +103,7 @@ select, button {
 /* Dropdown stili */
 select {
   font-size: 1em;
-  background: linear-gradient(135deg, #DE638A, #F7B9C4); /* Pembe-açık pembe */
+  background: #F7B9C4; /* Açık pembe */
   color: #000000 !important; /* Siyah yazı */
   border: 1px solid #4A3267;
   border-radius: 4px;
@@ -114,33 +115,41 @@ select {
 
 /* Dropdown seçenekleri */
 select option {
-  background: linear-gradient(135deg, #DE638A, #F7B9C4) !important; /* Pembe-açık pembe */
+  background: #F7B9C4 !important; /* Açık pembe */
   color: #000000 !important; /* Siyah yazı */
 }
 
 /* Dropdown hover rengi */
 select option:hover {
-  background: #C25577 !important; /* Koyu pembe */
+  background: #F3D9E5 !important; /* Pastel pembe */
+}
+
+/* Seçili seçenek */
+select option:checked {
+  background: #DE638A !important; /* Pembe */
 }
 
 /* Safari için fallback */
 @supports (-webkit-appearance: none) {
   select option {
-    background: #DE638A !important; /* Pembe fallback */
+    background: #F7B9C4 !important; /* Açık pembe fallback */
+  }
+  select option:checked {
+    background: #DE638A !important; /* Pembe */
   }
 }
 
-/* Butonlar: Koyu mor-pembe gradient */
+/* Butonlar: Tek renk açık morlu pembe */
 button {
-  background: linear-gradient(135deg, #4A3267, #DE638A); /* Koyu mor-pembe */
-  color: #e0e0e0 !important;
+  background: #C6BADE; /* Açık morlu pembe */
+  color: #000000 !important; /* Siyah metin */
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #3C2553; /* Daha koyu mor */
+  background: #F7B9C4; /* Açık pembe */
 }
 
 /* Mobil için form satırı alt alta */
@@ -238,11 +247,16 @@ button:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #e0e0e0 !important;
+  color: #000000 !important; /* Siyah metin */
   display: block;
   visibility: visible;
   opacity: 1;
   z-index: 2;
+}
+
+/* .result içindeki metinler */
+.result h2, .result p, .result .stats {
+  color: #000000 !important; /* Siyah metin */
 }
 
 /* .result hover */
@@ -254,7 +268,7 @@ button:hover {
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
-  color: #e0e0e0 !important;
+  color: #000000 !important; /* Siyah metin (.result için) */
   display: block;
   visibility: visible;
   opacity: 1;
@@ -269,9 +283,14 @@ button:hover {
   font-weight: bold;
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
-  color: #e0e0e0 !important;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
   visibility: visible;
   opacity: 1;
+}
+
+/* .result içindeki card-title için siyah metin */
+.result .card-title {
+  color: #000000 !important; /* Siyah metin */
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -292,7 +311,7 @@ button:hover {
   flex-direction: column;
   justify-content: flex-start;
   z-index: 2;
-  color: #e0e0e0 !important;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
   visibility: visible;
   opacity: 1;
 }
@@ -396,10 +415,15 @@ button:hover {
   transform: translate(-50%, -50%);
   font-size: 1em;
   font-weight: bold;
-  color: #e0e0e0 !important;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
   text-align: center;
   visibility: visible;
   opacity: 1;
+}
+
+/* .result içindeki label için siyah metin */
+.result .circle .label {
+  color: #000000 !important; /* Siyah metin */
 }
 
 .circle.love { --stroke-color: #ff4d6d; }
@@ -431,8 +455,13 @@ button:hover {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1em;
-  color: #e0e0e0 !important;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
   display: block;
   visibility: visible;
   opacity: 1;
+}
+
+/* .result içindeki paragraf için siyah metin */
+.result p {
+  color: #000000 !important; /* Siyah metin */
 }

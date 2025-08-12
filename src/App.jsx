@@ -134,16 +134,14 @@ function App() {
         <div
           className="result"
           style={{
-            background: 'linear-gradient(135deg, #F7B9C4, #F3D9E5), #1f2937',
+            background: 'linear-gradient(135deg, #4A3267, #C6BADE), #1f2937',
             padding: '15px',
             borderRadius: '12px',
             boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
             marginTop: '15px'
           }}
         >
-          <h2 className="card-title" style={{ color: '#e0e0e0' }}>
-            {horoscope.sign} - {formatDate(horoscope.date)}
-          </h2>
+          <h2 className="card-title">{horoscope.sign} - {formatDate(horoscope.date)}</h2>
           <p>{horoscope.text}</p>
           <div className="stats">
             ❤️ Aşk: {horoscope.love}%
@@ -161,15 +159,13 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: 'linear-gradient(135deg, #DE638A, #F7B9C4), #1f2937',
+                background: 'linear-gradient(135deg, #4A3267, #000000), #1f2937',
                 padding: '15px',
                 borderRadius: '12px',
                 boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
               }}
             >
-              <h2 className="card-title" style={{ color: '#e0e0e0' }}>
-                {h.sign}
-              </h2>
+              <h2 className="card-title">{h.sign}</h2>
               <div className="circular-stats">
                 <div className="circle love">
                   <svg>
