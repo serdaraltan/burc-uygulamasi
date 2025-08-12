@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './styles.css';
-import { Analytics } from "@vercel/analytics/next";
 
 function App() {
   const [sign, setSign] = useState('');
