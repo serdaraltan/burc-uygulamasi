@@ -1,4 +1,4 @@
-/* styles.css - Flip kartlar kaldırıldı, yorumlar yukarı taşındı */
+/* styles.css - Kart kaybolma, taşma ve boşluk hataları düzeltildi */
 
 /* Temel */
 body {
@@ -8,14 +8,15 @@ body {
   padding: 0;
 }
 
-/* CONTAINER: masaüstünde daha geniş alan */
+/* CONTAINER: masaüstünde daha geniş alan, taşmayı önlemek için padding artırıldı */
 .container {
   max-width: 1100px;
   margin: 40px auto;
   background: white;
-  padding: 20px;
+  padding: 20px 40px; /* Sağ/sol padding artırıldı */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box; /* Taşmayı önle */
 }
 
 /* Başlık */
@@ -63,13 +64,16 @@ button:hover {
   100% { transform: rotate(360deg); }
 }
 
-/* GRID */
+/* GRID: boşluk artırıldı (yatay/dikey), taşma önlendi */
 .grid {
   display: grid;
-  gap: 15px;
+  gap: 20px; /* Genel gap artırıldı */
+  row-gap: 20px; /* Dikey boşluk */
+  column-gap: 20px; /* Yatay boşluk */
   margin-top: 20px;
   align-items: stretch;
   grid-auto-rows: 1fr;
+  box-sizing: border-box; /* Taşmayı önle */
 }
 
 /* Masaüstü (>=1024px) */
@@ -99,12 +103,11 @@ button:hover {
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   color: #222;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease; /* Sadece gölge efekti, transform kaldırıldı */
 }
 
 /* .result hover (sabit tek kart görünüm) */
 .result:hover {
-  transform: translateY(-4px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
@@ -144,35 +147,34 @@ button:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: visible; /* Kart kaybolmayı önle */
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Yukarı hizala */
   background-size: 200% 200%;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease; /* Sadece gölge efekti */
+  z-index: 1; /* Kartların üst üste gelmesini önle */
 }
 
 /* Mobilde daha kompakt */
 @media (max-width: 767px) {
   .card {
-    min-height: 180px; /* Daha az yer kaplasın */
+    min-height: 180px;
   }
 }
 
-/* Kart hover (sadece masaüstünde) */
+/* Kart hover (sadece masaüstünde, transform kaldırıldı) */
 @media (hover: hover) and (pointer: fine) {
   .grid .card:hover {
     animation: gradientMove 4s ease infinite;
-    transform: translateY(-4px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   }
 }
 
-/* Dokunmatik cihazlarda hover animasyonunu kapat */
+/* Dokunmatik cihazlarda hover animasyonunu tamamen kapat */
 @media (hover: none) and (pointer: coarse) {
   .grid .card:hover {
     animation: none;
-    transform: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
 }
