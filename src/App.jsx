@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import './styles.css';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   const [error, setError] = useState(null);
   const [allHoroscopes, setAllHoroscopes] = useState([]);
   const [flippedCards, setFlippedCards] = useState({});
-  const [loading, setLoading] = useState(false); // Yeni state
+  const [loading, setLoading] = useState(false);
 
   const signs = [
     { value: 'koc', label: 'Koç' },
@@ -23,6 +23,26 @@ function App() {
     { value: 'kova', label: 'Kova' },
     { value: 'balik', label: 'Balık' }
   ];
+
+  // Debounce fonksiyonu
+  const debounce = (func, wait) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  // toggleFlip'i debounce ile sar
+  const toggleFlip = useCallback(
+    debounce((sign) => {
+      setFlippedCards((prev) => ({
+        ...prev,
+        [sign]: !prev[sign]
+      }));
+    }, 300),
+    []
+  );
 
   const fetchHoroscope = async () => {
     setError(null);
@@ -57,13 +77,6 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const toggleFlip = (sign) => {
-    setFlippedCards((prev) => ({
-      ...prev,
-      [sign]: !prev[sign]
-    }));
   };
 
   return (
@@ -112,6 +125,7 @@ function App() {
             <div
               key={h.sign}
               className={`flip-card ${flippedCards[h.sign] ? 'flipped' : ''}`}
+              onTouchStart={() => toggleFlip(h.sign)}
               onClick={() => toggleFlip(h.sign)}
             >
               <div className="flip-card-inner">
