@@ -65,6 +65,16 @@ button:hover {
   .grid {
     grid-template-columns: 1fr;
   }
+
+  /* Mobilde kart padding biraz küçülsün */
+  .result {
+    padding: 12px;
+  }
+
+  /* Mobilde başlık boyutu biraz küçülsün */
+  .card-title {
+    font-size: 1.2em;
+  }
 }
 
 /* Kartların iç görünümü */
@@ -84,4 +94,18 @@ button:hover {
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* emoji ile isim arası boşluk */
+  font-size: 1.4em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+/* Emoji biraz daha büyük görünsün */
+.card-title::first-letter {
+  font-size: 1.5em;
 }

@@ -6,9 +6,9 @@ const SIGNS = [
 ];
 
 const DISPLAY = {
-  koc: "Koç ♈", boga: "Boğa ♉", ikizler: "İkizler ♊", yengec: "Yengeç ♋",
-  aslan: "Aslan ♌", basak: "Başak ♍", terazi: "Terazi ♎", akrep: "Akrep ♏",
-  yay: "Yay ♐", oglak: "Oğlak ♑", kova: "Kova ♒", balik: "Balık ♓"
+  koc: "♈ Koç", boga: "♉ Boğa", ikizler: "♊ İkizler", yengec: "♋ Yengeç",
+  aslan: "♌ Aslan", basak: "♍ Başak", terazi: "♎ Terazi", akrep: "♏ Akrep",
+  yay: "♐ Yay", oglak: "♑ Oğlak", kova: "♒ Kova", balik: "♓ Balık"
 };
 
 const COLORS = {

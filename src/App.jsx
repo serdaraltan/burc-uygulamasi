@@ -5,8 +5,6 @@ function App() {
   const [sign, setSign] = useState('');
   const [horoscope, setHoroscope] = useState(null);
   const [error, setError] = useState(null);
-
-  // Yeni eklenen state
   const [allHoroscopes, setAllHoroscopes] = useState([]);
 
   const signs = [
@@ -43,7 +41,6 @@ function App() {
     }
   };
 
-  // Yeni eklenen fonksiyon
   const getAllHoroscopes = async () => {
     setError(null);
     try {
@@ -66,7 +63,6 @@ function App() {
         ))}
       </select>
       <button onClick={fetchHoroscope}>Yorumu Getir</button>
-      {/* Yeni eklenen buton */}
       <button onClick={getAllHoroscopes} style={{ marginLeft: '10px' }}>Tüm Burçları Göster</button>
 
       {horoscope && (
@@ -80,7 +76,7 @@ function App() {
             marginTop: "15px"
           }}
         >
-          <h2 style={{ color: horoscope.color }}>
+          <h2 className="card-title" style={{ color: horoscope.color }}>
             {horoscope.sign} - {horoscope.date}
           </h2>
           <p>{horoscope.text}</p>
@@ -94,7 +90,6 @@ function App() {
         </div>
       )}
 
-      {/* Yeni eklenen grid */}
       {allHoroscopes.length > 0 && (
         <div className="grid" style={{ marginTop: "20px" }}>
           {allHoroscopes.map(h => (
@@ -108,7 +103,9 @@ function App() {
                 boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
               }}
             >
-              <h2 style={{ color: h.color }}>{h.sign}</h2>
+              <h2 className="card-title" style={{ color: h.color }}>
+                {h.sign}
+              </h2>
               <p>{h.text}</p>
               <div className="stats">
                 ❤️ {h.love}%<br />
