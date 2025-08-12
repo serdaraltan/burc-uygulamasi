@@ -134,7 +134,7 @@ function App() {
         <div
           className="result"
           style={{
-            background: 'linear-gradient(135deg, #9333ea, #60a5fa), #2a2a2a',
+            background: 'linear-gradient(135deg, #6b21a8, #ec4899), #1f2937',
             padding: '15px',
             borderRadius: '12px',
             boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
@@ -161,7 +161,7 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: 'linear-gradient(135deg, #60a5fa, #1e3a8a), #2a2a2a',
+                background: 'linear-gradient(135deg, #c084fc, #6b21a8), #1f2937',
                 padding: '15px',
                 borderRadius: '12px',
                 boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
