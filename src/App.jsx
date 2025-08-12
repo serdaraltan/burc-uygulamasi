@@ -6,6 +6,7 @@ function App() {
   const [horoscope, setHoroscope] = useState(null);
   const [error, setError] = useState(null);
   const [allHoroscopes, setAllHoroscopes] = useState([]);
+  const [flippedCards, setFlippedCards] = useState({}); // Flip durumlarını tutar
 
   const signs = [
     { value: 'koc', label: 'Koç' },
@@ -31,9 +32,7 @@ function App() {
     }
     try {
       const res = await fetch(`/api/horoscope?sign=${sign}`);
-      if (!res.ok) {
-        throw new Error('API hatası');
-      }
+      if (!res.ok) throw new Error('API hatası');
       const data = await res.json();
       setHoroscope(data);
     } catch (err) {
@@ -51,6 +50,13 @@ function App() {
     } catch (err) {
       setError('Tüm burçlar alınırken hata oluştu.');
     }
+  };
+
+  const toggleFlip = (sign) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [sign]: !prev[sign]
+    }));
   };
 
   return (
@@ -95,22 +101,70 @@ function App() {
           {allHoroscopes.map(h => (
             <div
               key={h.sign}
-              className="result"
-              style={{
-                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`,
-                padding: "15px",
-                borderRadius: "12px",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
-              }}
+              className={`flip-card ${flippedCards[h.sign] ? 'flipped' : ''}`}
+              onClick={() => toggleFlip(h.sign)}
             >
-              <h2 className="card-title" style={{ color: h.color }}>
-                {h.sign}
-              </h2>
-              <p>{h.text}</p>
-              <div className="stats">
-                ❤️ {h.love}%<br />
-                💰 {h.money}%<br />
-                💪 {h.health}%
+              <div className="flip-card-inner">
+                {/* Ön yüz */}
+                <div
+                  className="flip-card-front"
+                  style={{
+                    background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
+                  }}
+                >
+                  <h2 className="card-title" style={{ color: h.color }}>
+                    {h.sign}
+                  </h2>
+                  <p>{h.text}</p>
+                </div>
+                {/* Arka yüz */}
+                <div
+                  className="flip-card-back"
+                  style={{
+                    background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
+                  }}
+                >
+                  <h3>Şans Yüzdeleri</h3>
+                  <div className="stats circular-stats">
+                    <div className="circle love">
+                      <svg>
+                        <circle cx="40" cy="40" r="35"></circle>
+                        <circle
+                          cx="40"
+                          cy="40"
+                          r="35"
+                          style={{ '--percent': h.love }}
+                        ></circle>
+                      </svg>
+                      <div className="label">❤️ {h.love}%</div>
+                    </div>
+
+                    <div className="circle money">
+                      <svg>
+                        <circle cx="40" cy="40" r="35"></circle>
+                        <circle
+                          cx="40"
+                          cy="40"
+                          r="35"
+                          style={{ '--percent': h.money }}
+                        ></circle>
+                      </svg>
+                      <div className="label">💰 {h.money}%</div>
+                    </div>
+                    <div className="circle health">
+                      <svg>
+                        <circle cx="40" cy="40" r="35"></circle>
+                        <circle
+                          cx="40"
+                          cy="40"
+                          r="35"
+                          style={{ '--percent': h.health }}
+                        ></circle>
+                      </svg>
+                      <div className="label">💪 {h.health}%</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
