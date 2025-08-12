@@ -1,4 +1,4 @@
-/* styles.css - card-title ve circle label masaüstü için düzeltildi, dropdown stili eklendi */
+/* styles.css - Arka plan siyaha yakın, kartlar koyu, başlık ve tarih aynı blokta */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -9,28 +9,32 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  background: #1a1a1a; /* Siyah yakın */
 }
 
-/* CONTAINER: butonlarla hizalı */
+/* CONTAINER: Koyu gri arka plan */
 .container {
   max-width: 1060px;
   margin: 40px auto;
-  background: white;
+  background: #2a2a2a; /* Koyu gri */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Başlık bloğu */
+.header-block {
+  background: linear-gradient(135deg, #6b7280, #9333ea);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
 }
 
 /* Başlık */
 h1 {
-  text-align: center;
   font-family: 'Cinzel', serif;
   font-size: 2em;
-  background: linear-gradient(135deg, #6b7280, #9333ea);
   color: white;
-  padding: 10px;
-  border-radius: 8px;
   animation: fadeIn 1s ease forwards;
 }
 
@@ -48,11 +52,11 @@ h1 .star-icon {
 
 /* Başlık altına tarih */
 .header-date {
-  text-align: center;
-  color: #555;
+  background: none;
+  color: #e0e0e0; /* Açık gri, gradient uyumlu */
   font-size: 1.1em;
   margin-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 /* Form satırı (select ve butonlar için) */
@@ -181,19 +185,20 @@ select option:hover {
 .result {
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  color: #222;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  color: #e0e0e0; /* Koyu tema için açık gri */
 }
 
 /* .result hover */
 .result:hover {
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
 /* Stats basit hali */
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
+  color: #e0e0e0; /* Koyu tema uyumlu */
 }
 
 /* Başlık (emoji + isim hizalaması) */
@@ -219,12 +224,13 @@ select option:hover {
   min-height: 220px;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   z-index: 2;
+  color: #e0e0e0; /* Koyu tema için açık gri */
 }
 
 /* Mobilde daha kompakt */
@@ -237,14 +243,14 @@ select option:hover {
 /* Kart hover: sadece gölge */
 @media (hover: hover) and (pointer: fine) {
   .grid .card:hover {
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
   }
 }
 
 /* Dokunmatik cihazlarda hover kapalı */
 @media (hover: none) and (pointer: coarse) {
   .grid .card, .grid .card:hover {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   }
 }
 

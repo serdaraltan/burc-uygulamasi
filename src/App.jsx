@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './styles.css';
+import { Analytics } from "@vercel/analytics/next";
 
 function App() {
   const [sign, setSign] = useState('');
@@ -96,12 +97,15 @@ function App() {
 
   return (
     <div className="container">
-      <h1>
-        <span className="star-icon">✨</span>
-        Günlük Burç Yorumları
-        <span className="star-icon">✨</span>
-      </h1>
-      <div className="header-date">{today}</div>
+      <Analytics />
+      <div className="header-block">
+        <h1>
+          <span className="star-icon">✨</span>
+          Günlük Burç Yorumları
+          <span className="star-icon">✨</span>
+        </h1>
+        <div className="header-date">{today}</div>
+      </div>
       <div className="form-row">
         <select value={sign} onChange={(e) => setSign(e.target.value)}>
           <option value="">Burcunuzu seçin</option>
@@ -124,10 +128,10 @@ function App() {
         <div
           className="result"
           style={{
-            background: `linear-gradient(135deg, ${horoscope.color} 0%, ${horoscope.color}33 100%)`,
+            background: `linear-gradient(135deg, ${horoscope.color}80, ${horoscope.color}20), #2a2a2a`,
             padding: "15px",
             borderRadius: "12px",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
             marginTop: "15px"
           }}
         >
@@ -151,7 +155,7 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
+                background: `linear-gradient(135deg, ${h.color}80, ${h.color}20), #2a2a2a`
               }}
             >
               <h2 className="card-title" style={{ color: h.color }}>
