@@ -102,19 +102,8 @@ function App() {
   // Bugünün tarihi
   const today = formatDate(new Date());
 
-  // Hex to RGB for gradient
-  function hexToRgb(hex) {
-    hex = hex.replace('#', '');
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    return `${r}, ${g}, ${b}`;
-  }
-
   return (
     <div className="container">
-      <div>Test: Uygulama Yüklendi</div> {/* Hata ayıklama için */}
-      {typeof Analytics !== 'undefined' && <Analytics />}
       <div className="header-block">
         <h1>
           <span className="star-icon">✨</span>
@@ -145,7 +134,6 @@ function App() {
         <div
           className="result"
           style={{
-            background: `linear-gradient(135deg, rgba(${hexToRgb(horoscope.color)}, 0.5), rgba(${hexToRgb(horoscope.color)}, 0.2)), #2a2a2a`,
             padding: "15px",
             borderRadius: "12px",
             boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
@@ -172,7 +160,9 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, rgba(${hexToRgb(h.color)}, 0.5), rgba(${hexToRgb(h.color)}, 0.2)), #2a2a2a`
+                padding: "15px",
+                borderRadius: "12px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.5)"
               }}
             >
               <h2 className="card-title" style={{ color: '#e0e0e0' }}>
