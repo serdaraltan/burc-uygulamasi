@@ -50,9 +50,14 @@ function App() {
       const res = await fetch(`/api/all`);
       if (!res.ok) throw new Error('API hatası');
       const data = await res.json();
-      setAllHoroscopes(data.horoscopes || []);
+      if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
+        throw new Error('Geçersiz veri formatı');
+      }
+      setAllHoroscopes(data.horoscopes);
     } catch (err) {
+      console.error('Tüm burçlar alınırken hata:', err.message); // Hata kontrolü
       setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
+      setAllHoroscopes([]); // Hata durumunda boş array
     } finally {
       setLoading(false);
     }
@@ -105,7 +110,7 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, ${h.color} 0%, ${horoscope.color}33 100%)`
+                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)` // Düzeltildi
               }}
             >
               <h2 className="card-title" style={{ color: h.color }}>
