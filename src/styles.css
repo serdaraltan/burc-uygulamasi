@@ -1,4 +1,4 @@
-/* styles.css - Mobil ikon, yüzdelik ve burç ismi görünürlüğü düzeltildi */
+/* styles.css - Mobil ve masaüstü çember boyutları düzeltildi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -130,7 +130,7 @@ button:hover {
 /* Mobil için burç ismi görünürlüğünü artır */
 @media (max-width: 767px) {
   .card-title {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Hafif gölge */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -212,14 +212,14 @@ button:hover {
 
 .circle {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 90px; /* Masaüstü için büyütüldü */
+  height: 90px;
 }
 
 .circle svg {
   transform: rotate(-90deg);
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
 }
 
 .circle circle {
@@ -231,8 +231,8 @@ button:hover {
 
 .circle circle:nth-child(2) {
   stroke: var(--stroke-color);
-  stroke-dasharray: 219.91;
-  stroke-dashoffset: calc(219.91 - (var(--percent) * 219.91 / 100));
+  stroke-dasharray: 238.76; /* 2 * π * r = 2 * π * 38 */
+  stroke-dashoffset: calc(238.76 - (var(--percent) * 238.76 / 100));
   transition: stroke-dashoffset 0.8s ease;
 }
 
@@ -241,7 +241,7 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 0.9em;
+  font-size: 1em; /* Masaüstü için büyütüldü */
   font-weight: bold;
   color: white;
   text-align: center;
@@ -251,21 +251,21 @@ button:hover {
 .circle.money { --stroke-color: #4CAF50; }
 .circle.health { --stroke-color: #00bcd4; }
 
-/* Mobil için circular stats büyüt */
+/* Mobil için circular stats */
 @media (max-width: 767px) {
   .circle {
-    width: 70px; /* 60px -> 70px */
-    height: 70px;
+    width: 80px; /* 70px -> 80px */
+    height: 80px;
   }
   .circle svg {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
   }
   .circle circle {
-    stroke-width: 7; /* 6 -> 7 */
+    stroke-width: 7;
   }
   .circle .label {
-    font-size: 0.9em; /* 0.8em -> 0.9em */
+    font-size: 0.9em;
   }
 }
 

@@ -105,7 +105,7 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`
+                background: `linear-gradient(135deg, ${h.color} 0%, ${horoscope.color}33 100%)`
               }}
             >
               <h2 className="card-title" style={{ color: h.color }}>
@@ -114,11 +114,11 @@ function App() {
               <div className="circular-stats">
                 <div className="circle love">
                   <svg>
-                    <circle cx="40" cy="40" r="35"></circle>
+                    <circle cx="45" cy="45" r="38"></circle>
                     <circle
-                      cx="40"
-                      cy="40"
-                      r="35"
+                      cx="45"
+                      cy="45"
+                      r="38"
                       style={{ '--percent': h.love }}
                     ></circle>
                   </svg>
@@ -126,11 +126,11 @@ function App() {
                 </div>
                 <div className="circle money">
                   <svg>
-                    <circle cx="40" cy="40" r="35"></circle>
+                    <circle cx="45" cy="45" r="38"></circle>
                     <circle
-                      cx="40"
-                      cy="40"
-                      r="35"
+                      cx="45"
+                      cy="45"
+                      r="38"
                       style={{ '--percent': h.money }}
                     ></circle>
                   </svg>
@@ -138,11 +138,11 @@ function App() {
                 </div>
                 <div className="circle health">
                   <svg>
-                    <circle cx="40" cy="40" r="35"></circle>
+                    <circle cx="45" cy="45" r="38"></circle>
                     <circle
-                      cx="40"
-                      cy="40"
-                      r="35"
+                      cx="45"
+                      cy="45"
+                      r="38"
                       style={{ '--percent': h.health }}
                     ></circle>
                   </svg>
