@@ -1,4 +1,4 @@
-/* styles.css - Dropdown gri gradient, seçenekler mor-mavi, toast mor, görünürlük korundu */
+/* styles.css - Dropdown siyah yazı, toast mor, kart gradientleri güncellendi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -103,7 +103,7 @@ select, button {
 select {
   font-size: 1em;
   background: linear-gradient(135deg, #d1d5db, #9ca3af); /* Açık gri gradient */
-  color: #e0e0e0 !important;
+  color: #000000 !important; /* Siyah yazı */
   border: 1px solid #9333ea;
   border-radius: 4px;
   -webkit-appearance: none;
@@ -115,7 +115,7 @@ select {
 /* Dropdown seçenekleri */
 select option {
   background: linear-gradient(135deg, #6b7280, #9333ea) !important; /* Mor-mavi */
-  color: #e0e0e0 !important;
+  color: #000000 !important; /* Siyah yazı */
 }
 
 /* Dropdown hover rengi */
