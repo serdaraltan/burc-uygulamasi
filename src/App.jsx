@@ -6,6 +6,9 @@ function App() {
   const [horoscope, setHoroscope] = useState(null);
   const [error, setError] = useState(null);
 
+  // Yeni eklenen state
+  const [allHoroscopes, setAllHoroscopes] = useState([]);
+
   const signs = [
     { value: 'koc', label: 'Koç' },
     { value: 'boga', label: 'Boğa' },
@@ -40,6 +43,19 @@ function App() {
     }
   };
 
+  // Yeni eklenen fonksiyon
+  const getAllHoroscopes = async () => {
+    setError(null);
+    try {
+      const res = await fetch(`/api/all`);
+      if (!res.ok) throw new Error('API hatası');
+      const data = await res.json();
+      setAllHoroscopes(data.horoscopes || []);
+    } catch (err) {
+      setError('Tüm burçlar alınırken hata oluştu.');
+    }
+  };
+
   return (
     <div className="container">
       <h1>Günlük Burç Yorumları</h1>
@@ -50,35 +66,61 @@ function App() {
         ))}
       </select>
       <button onClick={fetchHoroscope}>Yorumu Getir</button>
+      {/* Yeni eklenen buton */}
+      <button onClick={getAllHoroscopes} style={{ marginLeft: '10px' }}>Tüm Burçları Göster</button>
 
-{horoscope && (
-  <div
-    className="result"
-    style={{
-      background: `linear-gradient(135deg, ${horoscope.color} 0%, ${horoscope.color}33 100%)`,
-      padding: "15px",
-      borderRadius: "12px",
-      boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-      marginTop: "15px"
-    }}
-  >
-    <h2 style={{ color: horoscope.color }}>
-      {horoscope.sign} - {horoscope.date}
-    </h2>
-    <p>{horoscope.text}</p>
-    <div className="stats">
-     ❤️ Aşk: {horoscope.love}%
-      <br />
-      💰 Para: {horoscope.money}%
-      <br />
-      💪 Sağlık: {horoscope.health}%
-    </div>
-  </div>
-)}
+      {horoscope && (
+        <div
+          className="result"
+          style={{
+            background: `linear-gradient(135deg, ${horoscope.color} 0%, ${horoscope.color}33 100%)`,
+            padding: "15px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+            marginTop: "15px"
+          }}
+        >
+          <h2 style={{ color: horoscope.color }}>
+            {horoscope.sign} - {horoscope.date}
+          </h2>
+          <p>{horoscope.text}</p>
+          <div className="stats">
+            ❤️ Aşk: {horoscope.love}%
+            <br />
+            💰 Para: {horoscope.money}%
+            <br />
+            💪 Sağlık: {horoscope.health}%
+          </div>
+        </div>
+      )}
 
+      {/* Yeni eklenen grid */}
+      {allHoroscopes.length > 0 && (
+        <div className="grid" style={{ marginTop: "20px" }}>
+          {allHoroscopes.map(h => (
+            <div
+              key={h.sign}
+              className="result"
+              style={{
+                background: `linear-gradient(135deg, ${h.color} 0%, ${h.color}33 100%)`,
+                padding: "15px",
+                borderRadius: "12px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
+              }}
+            >
+              <h2 style={{ color: h.color }}>{h.sign}</h2>
+              <p>{h.text}</p>
+              <div className="stats">
+                ❤️ {h.love}%<br />
+                💰 {h.money}%<br />
+                💪 {h.health}%
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {error && <p className="error">{error}</p>}
-      
     </div>
   );
 }
