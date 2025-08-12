@@ -182,10 +182,9 @@ button:hover {
 
 /* GRID'deki kartlarda hover animasyonu (sadece masaüstünde) */
 @media (hover: hover) and (pointer: fine) {
-  .grid .flip-card:hover .flip-card-front,
-  .grid .flip-card:hover .flip-card-back {
+  .grid .flip-card:hover .flip-card-front {
     animation: gradientMove 4s ease infinite;
-    transform: translateY(-4px); /* hover etkisi */
+    transform: translateY(-4px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   }
 }
