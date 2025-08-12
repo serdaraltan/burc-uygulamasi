@@ -29,7 +29,7 @@ function App() {
       const timer = setTimeout(() => {
         setError(null);
       }, 3000);
-      return () => clearTimeout(timer); // Temizleme
+      return () => clearTimeout(timer);
     }
   }, [error]);
 
@@ -71,6 +71,14 @@ function App() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Mobil için SVG boyutları
+  const isMobile = window.innerWidth < 768;
+  const circleProps = {
+    cx: isMobile ? '40' : '45',
+    cy: isMobile ? '40' : '45',
+    r: isMobile ? '34' : '38'
   };
 
   return (
@@ -130,11 +138,9 @@ function App() {
               <div className="circular-stats">
                 <div className="circle love">
                   <svg>
-                    <circle cx="45" cy="45" r="38"></circle>
+                    <circle {...circleProps}></circle>
                     <circle
-                      cx="45"
-                      cy="45"
-                      r="38"
+                      {...circleProps}
                       style={{ '--percent': h.love }}
                     ></circle>
                   </svg>
@@ -142,11 +148,9 @@ function App() {
                 </div>
                 <div className="circle money">
                   <svg>
-                    <circle cx="45" cy="45" r="38"></circle>
+                    <circle {...circleProps}></circle>
                     <circle
-                      cx="45"
-                      cy="45"
-                      r="38"
+                      {...circleProps}
                       style={{ '--percent': h.money }}
                     ></circle>
                   </svg>
@@ -154,11 +158,9 @@ function App() {
                 </div>
                 <div className="circle health">
                   <svg>
-                    <circle cx="45" cy="45" r="38"></circle>
+                    <circle {...circleProps}></circle>
                     <circle
-                      cx="45"
-                      cy="45"
-                      r="38"
+                      {...circleProps}
                       style={{ '--percent': h.health }}
                     ></circle>
                   </svg>

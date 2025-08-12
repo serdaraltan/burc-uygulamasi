@@ -1,4 +1,4 @@
-/* styles.css - Toast notification eklendi, .error kaldırıldı */
+/* styles.css - Toast ortalandı, mobil çemberler için stroke ayarlandı */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -46,11 +46,12 @@ button:hover {
   background: #1976D2;
 }
 
-/* Toast notification */
+/* Toast notification: Ortalandı */
 .toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #ff4d4d;
   color: white;
   padding: 10px 20px;
@@ -62,10 +63,10 @@ button:hover {
 
 /* Toast animasyonu */
 @keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-10px); }
-  10% { opacity: 1; transform: translateY(0); }
-  90% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-10px); }
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  10% { opacity: 1; transform: translate(-50%, -50%); }
+  90% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -60%); }
 }
 
 /* Yükleme spinner'ı */
@@ -248,7 +249,7 @@ button:hover {
 
 .circle circle:nth-child(2) {
   stroke: var(--stroke-color);
-  stroke-dasharray: 238.76;
+  stroke-dasharray: 238.76; /* 2 * π * 38 (masaüstü) */
   stroke-dashoffset: calc(238.76 - (var(--percent) * 238.76 / 100));
   transition: stroke-dashoffset 0.8s ease;
 }
@@ -280,6 +281,8 @@ button:hover {
   }
   .circle circle {
     stroke-width: 7;
+    stroke-dasharray: 213.63; /* 2 * π * 34 (mobil) */
+    stroke-dashoffset: calc(213.63 - (var(--percent) * 213.63 / 100));
   }
   .circle .label {
     font-size: 0.9em;
