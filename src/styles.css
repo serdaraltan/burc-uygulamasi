@@ -1,4 +1,4 @@
-/* styles.css - Gece Mavisi Elegansı kartelası, dropdown siyah yazı, görünürlük korundu */
+/* styles.css - Zümrüt ve Altın Lüksü kartelası, dropdown siyah yazı, görünürlük korundu */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -33,7 +33,7 @@ body {
 
 /* Başlık bloğu */
 .header-block {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* Koyu mavi-açık mavi */
+  background: linear-gradient(135deg, #064e3b, #10b981); /* Koyu zümrüt-açık zümrüt */
   padding: 15px;
   border-radius: 8px;
   text-align: center;
@@ -104,7 +104,7 @@ select {
   font-size: 1em;
   background: linear-gradient(135deg, #d4d4d8, #9ca3af); /* Açık gri-metalik gri */
   color: #000000 !important; /* Siyah yazı */
-  border: 1px solid #1e3a8a;
+  border: 1px solid #064e3b;
   border-radius: 4px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -114,25 +114,25 @@ select {
 
 /* Dropdown seçenekleri */
 select option {
-  background: linear-gradient(135deg, #1e40af, #60a5fa) !important; /* Koyu mavi-canlı mavi */
+  background: linear-gradient(135deg, #065f46, #10b981) !important; /* Koyu yeşil-açık zümrüt */
   color: #000000 !important; /* Siyah yazı */
 }
 
 /* Dropdown hover rengi */
 select option:hover {
-  background: #1e3a8a !important; /* Koyu mavi */
+  background: #064e3b !important; /* Koyu zümrüt */
 }
 
 /* Safari için fallback */
 @supports (-webkit-appearance: none) {
   select option {
-    background: #1e40af !important; /* Koyu mavi fallback */
+    background: #065f46 !important; /* Koyu yeşil fallback */
   }
 }
 
-/* Butonlar: Koyu mavi-canlı mavi gradient */
+/* Butonlar: Koyu yeşil-altın gradient */
 button {
-  background: linear-gradient(135deg, #1e40af, #60a5fa); /* Koyu mavi-canlı mavi */
+  background: linear-gradient(135deg, #065f46, #facc15); /* Koyu yeşil-altın */
   color: #e0e0e0 !important;
   border: none;
   border-radius: 4px;
@@ -140,7 +140,7 @@ button {
 }
 
 button:hover {
-  background: #1e3a8a; /* Koyu mavi */
+  background: #064e3b; /* Koyu zümrüt */
 }
 
 /* Mobil için form satırı alt alta */
@@ -160,7 +160,7 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #1e3a8a; /* Koyu mavi */
+  background: #064e3b; /* Koyu zümrüt */
   color: #e0e0e0 !important;
   padding: 10px 20px;
   border-radius: 4px;
@@ -183,7 +183,7 @@ button:hover {
 /* Yükleme spinner'ı */
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #1e3a8a;
+  border-top: 4px solid #064e3b; /* Koyu zümrüt */
   border-radius: 50%;
   width: 24px;
   height: 24px;
