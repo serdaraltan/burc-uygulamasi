@@ -1,4 +1,4 @@
-/* styles.css - Koyu tema görünürlük düzeltmeleri */
+/* styles.css - Görünürlük düzeltmeleri, koyu tema kontrast artırıldı */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -10,7 +10,9 @@
 body {
   font-family: Arial, sans-serif;
   background: #1a1a1a; /* Siyah yakın */
-  color: #e0e0e0; /* Varsayılan açık gri */
+  color: #e0e0e0 !important; /* Varsayılan açık gri */
+  display: block;
+  visibility: visible;
 }
 
 /* CONTAINER: Koyu gri arka plan */
@@ -21,7 +23,10 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
+  display: block;
+  visibility: visible;
+  z-index: 1;
 }
 
 /* Başlık bloğu */
@@ -30,20 +35,26 @@ body {
   padding: 15px;
   border-radius: 8px;
   text-align: center;
+  display: block;
+  visibility: visible;
+  z-index: 2;
 }
 
 /* Başlık */
 h1 {
   font-family: 'Cinzel', serif;
   font-size: 2em;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
   animation: fadeIn 1s ease forwards;
+  display: block;
+  visibility: visible;
 }
 
 /* Başlık ikonları */
 h1 .star-icon {
   margin: 0 10px;
   font-size: 1.2em;
+  color: #e0e0e0 !important;
 }
 
 /* Başlık animasyonu */
@@ -55,10 +66,12 @@ h1 .star-icon {
 /* Başlık altına tarih */
 .header-date {
   background: none;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
   font-size: 1.1em;
   margin-top: 5px;
   margin-bottom: 10px;
+  display: block;
+  visibility: visible;
 }
 
 /* Form satırı (select ve butonlar için) */
@@ -67,21 +80,23 @@ h1 .star-icon {
   gap: 10px;
   margin-top: 10px;
   align-items: center;
+  visibility: visible;
+  z-index: 3;
 }
 
 /* Form kontrolleri */
 select, button {
   padding: 10px;
   flex: 1;
+  display: block;
+  visibility: visible;
 }
 
 /* Dropdown stili */
 select {
   font-size: 1em;
-  display: flex;
-  align-items: center;
   background: linear-gradient(135deg, #6b7280, #9333ea);
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
   border: 1px solid #9333ea;
   border-radius: 4px;
   -webkit-appearance: none;
@@ -93,7 +108,7 @@ select {
 /* Dropdown seçenekleri */
 select option {
   background: linear-gradient(135deg, #6b7280, #9333ea);
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
 }
 
 /* Dropdown hover rengi */
@@ -119,13 +134,14 @@ select option:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #ff4d4d;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
   padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
   animation: fadeInOut 3s ease forwards;
   text-align: center;
+  visibility: visible;
 }
 
 /* Toast animasyonu */
@@ -145,6 +161,8 @@ select option:hover {
   height: 24px;
   animation: spin 1s linear infinite;
   margin: 10px auto;
+  display: block;
+  visibility: visible;
 }
 
 @keyframes spin {
@@ -160,6 +178,8 @@ select option:hover {
   align-items: stretch;
   grid-auto-rows: 1fr;
   max-width: 100%;
+  visibility: visible;
+  z-index: 2;
 }
 
 /* Masaüstü (>=1024px): butonla hizalı */
@@ -188,7 +208,10 @@ select option:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
+  display: block;
+  visibility: visible;
+  z-index: 2;
 }
 
 /* .result hover */
@@ -200,7 +223,9 @@ select option:hover {
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
+  display: block;
+  visibility: visible;
 }
 
 /* Başlık (emoji + isim hizalaması) */
@@ -212,6 +237,8 @@ select option:hover {
   font-weight: bold;
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+  color: #e0e0e0 !important;
+  visibility: visible;
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -232,7 +259,8 @@ select option:hover {
   flex-direction: column;
   justify-content: flex-start;
   z-index: 2;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
+  visibility: visible;
 }
 
 /* Mobilde daha kompakt */
@@ -266,6 +294,7 @@ select option:hover {
 .grid .card {
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards;
+  visibility: visible;
 }
 
 /* Kartların sırayla gelmesi için delay */
@@ -289,18 +318,23 @@ select option:hover {
   justify-content: center;
   flex-wrap: wrap;
   margin: 10px 0;
+  visibility: visible;
 }
 
 .circle {
   position: relative;
   width: 90px;
   height: 90px;
+  display: block;
+  visibility: visible;
 }
 
 .circle svg {
   transform: rotate(-90deg);
   width: 90px;
   height: 90px;
+  display: block;
+  visibility: visible;
 }
 
 .circle circle {
@@ -324,8 +358,9 @@ select option:hover {
   transform: translate(-50%, -50%);
   font-size: 1em;
   font-weight: bold;
-  color: #e0e0e0 !important; /* Koyu tema için açık gri */
+  color: #e0e0e0 !important;
   text-align: center;
+  visibility: visible;
 }
 
 .circle.love { --stroke-color: #ff4d6d; }
@@ -357,5 +392,7 @@ select option:hover {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1em;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
+  display: block;
+  visibility: visible;
 }

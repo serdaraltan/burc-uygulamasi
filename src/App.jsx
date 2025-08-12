@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './styles.css';
+import { Analytics } from "@vercel/analytics/next";
 
 function App() {
   const [sign, setSign] = useState('');
@@ -7,6 +8,9 @@ function App() {
   const [error, setError] = useState(null);
   const [allHoroscopes, setAllHoroscopes] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // State kontrolü için log
+  console.log('State:', { sign, horoscope, allHoroscopes, loading, error });
 
   const signs = [
     { value: 'koc', label: 'Koç', icon: '♈' },
@@ -53,10 +57,11 @@ function App() {
     setLoading(true);
     try {
       const res = await fetch(`/api/horoscope?sign=${sign}`);
-      if (!res.ok) throw new Error('API hatası');
+      console.log('Fetch Horoscope Response:', res.status, res.statusText);
+      if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
+      console.log('Horoscope Data:', data);
       setHoroscope(data);
-      console.log('Horoscope:', data); // Hata ayıklama
     } catch (err) {
       setError('Horoskop alınırken hata oluştu: ' + err.message);
       console.error('Fetch error:', err);
@@ -70,13 +75,14 @@ function App() {
     setLoading(true);
     try {
       const res = await fetch(`/api/all`);
-      if (!res.ok) throw new Error('API hatası');
+      console.log('Fetch All Horoscopes Response:', res.status, res.statusText);
+      if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
+      console.log('All Horoscopes Data:', data);
       if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
         throw new Error('Geçersiz veri formatı');
       }
       setAllHoroscopes(data.horoscopes);
-      console.log('All Horoscopes:', data.horoscopes); // Hata ayıklama
     } catch (err) {
       console.error('Tüm burçlar alınırken hata:', err.message);
       setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
@@ -97,9 +103,19 @@ function App() {
   // Bugünün tarihi
   const today = formatDate(new Date());
 
+  // Hex to RGB for gradient
+  function hexToRgb(hex) {
+    hex = hex.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `${r}, ${g}, ${b}`;
+  }
+
   return (
     <div className="container">
-      <Analytics />
+      <div>Test: Uygulama Yüklendi</div> {/* Hata ayıklama için */}
+      {typeof Analytics !== 'undefined' && <Analytics />}
       <div className="header-block">
         <h1>
           <span className="star-icon">✨</span>
@@ -157,7 +173,7 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, rgba(${hexToRgb(h.color)}, 0.5), rgba(${h.color}, 0.2)), #2a2a2a`
+                background: `linear-gradient(135deg, rgba(${hexToRgb(h.color)}, 0.5), rgba(${hexToRgb(h.color)}, 0.2)), #2a2a2a`
               }}
             >
               <h2 className="card-title" style={{ color: '#e0e0e0' }}>
@@ -202,15 +218,6 @@ function App() {
       )}
     </div>
   );
-}
-
-// Hex to RGB for gradient (opacity desteği için)
-function hexToRgb(hex) {
-  hex = hex.replace('#', '');
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  return `${r}, ${g}, ${b}`;
 }
 
 export default App;
