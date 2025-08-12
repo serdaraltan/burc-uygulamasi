@@ -12,18 +12,18 @@ function App() {
   console.log('State:', { sign, horoscope, allHoroscopes, loading, error });
 
   const signs = [
-    { value: 'koc', label: 'Koç', icon: '♈' },
-    { value: 'boga', label: 'Boğa', icon: '♉' },
-    { value: 'ikizler', label: 'İkizler', icon: '♊' },
-    { value: 'yengec', label: 'Yengeç', icon: '♋' },
-    { value: 'aslan', label: 'Aslan', icon: '♌' },
-    { value: 'basak', label: 'Başak', icon: '♍' },
-    { value: 'terazi', label: 'Terazi', icon: '♎' },
-    { value: 'akrep', label: 'Akrep', icon: '♏' },
-    { value: 'yay', label: 'Yay', icon: '♐' },
-    { value: 'oglak', label: 'Oğlak', icon: '♑' },
-    { value: 'kova', label: 'Kova', icon: '♒' },
-    { value: 'balik', label: 'Balık', icon: '♓' }
+    { value: 'koc', label: 'Koç', icon: '♈', gradient: { start: '#6b7280', end: '#9333ea' } },
+    { value: 'boga', label: 'Boğa', icon: '♉', gradient: { start: '#4c1d95', end: '#7c3aed' } },
+    { value: 'ikizler', label: 'İkizler', icon: '♊', gradient: { start: '#5b21b6', end: '#a78bfa' } },
+    { value: 'yengec', label: 'Yengeç', icon: '♋', gradient: { start: '#312e81', end: '#6d28d9' } },
+    { value: 'aslan', label: 'Aslan', icon: '♌', gradient: { start: '#4b0082', end: '#8b5cf6' } },
+    { value: 'basak', label: 'Başak', icon: '♍', gradient: { start: '#6d28d9', end: '#c4b5fd' } },
+    { value: 'terazi', label: 'Terazi', icon: '♎', gradient: { start: '#7e22ce', end: '#d8b4fe' } },
+    { value: 'akrep', label: 'Akrep', icon: '♏', gradient: { start: '#581c87', end: '#a855f7' } },
+    { value: 'yay', label: 'Yay', icon: '♐', gradient: { start: '#6b21a8', end: '#c084fc' } },
+    { value: 'oglak', label: 'Oğlak', icon: '♑', gradient: { start: '#3b0764', end: '#7c3aed' } },
+    { value: 'kova', label: 'Kova', icon: '♒', gradient: { start: '#5b21b6', end: '#e9d5ff' } },
+    { value: 'balik', label: 'Balık', icon: '♓', gradient: { start: '#4c1d95', end: '#a78bfa' } }
   ];
 
   // Hata mesajını 3 saniye sonra temizle
@@ -134,6 +134,7 @@ function App() {
         <div
           className="result"
           style={{
+            background: `linear-gradient(135deg, ${signs.find(s => s.value === sign)?.gradient.start || '#6b7280'}, ${signs.find(s => s.value === sign)?.gradient.end || '#9333ea'}), #2a2a2a`,
             padding: "15px",
             borderRadius: "12px",
             boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
@@ -155,54 +156,58 @@ function App() {
       )}
       {allHoroscopes.length > 0 && (
         <div className="grid" style={{ marginTop: "20px" }}>
-          {allHoroscopes.map(h => (
-            <div
-              key={h.sign}
-              className="card"
-              style={{
-                padding: "15px",
-                borderRadius: "12px",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.5)"
-              }}
-            >
-              <h2 className="card-title" style={{ color: '#e0e0e0' }}>
-                {h.sign}
-              </h2>
-              <div className="circular-stats">
-                <div className="circle love">
-                  <svg>
-                    <circle {...circleProps}></circle>
-                    <circle
-                      {...circleProps}
-                      style={{ '--percent': h.love }}
-                    ></circle>
-                  </svg>
-                  <div className="label">❤️ {h.love}%</div>
+          {allHoroscopes.map(h => {
+            const signGradient = signs.find(s => s.value === h.sign.toLowerCase())?.gradient || { start: '#6b7280', end: '#9333ea' };
+            return (
+              <div
+                key={h.sign}
+                className="card"
+                style={{
+                  background: `linear-gradient(135deg, ${signGradient.start}, ${signGradient.end}), #2a2a2a`,
+                  padding: "15px",
+                  borderRadius: "12px",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.5)"
+                }}
+              >
+                <h2 className="card-title" style={{ color: '#e0e0e0' }}>
+                  {h.sign}
+                </h2>
+                <div className="circular-stats">
+                  <div className="circle love">
+                    <svg>
+                      <circle {...circleProps}></circle>
+                      <circle
+                        {...circleProps}
+                        style={{ '--percent': h.love }}
+                      ></circle>
+                    </svg>
+                    <div className="label">❤️ {h.love}%</div>
+                  </div>
+                  <div className="circle money">
+                    <svg>
+                      <circle {...circleProps}></circle>
+                      <circle
+                        {...circleProps}
+                        style={{ '--percent': h.money }}
+                      ></circle>
+                    </svg>
+                    <div className="label">💰 {h.money}%</div>
+                  </div>
+                  <div className="circle health">
+                    <svg>
+                      <circle {...circleProps}></circle>
+                      <circle
+                        {...circleProps}
+                        style={{ '--percent': h.health }}
+                      ></circle>
+                    </svg>
+                    <div className="label">💪 {h.health}%</div>
+                  </div>
                 </div>
-                <div className="circle money">
-                  <svg>
-                    <circle {...circleProps}></circle>
-                    <circle
-                      {...circleProps}
-                      style={{ '--percent': h.money }}
-                    ></circle>
-                  </svg>
-                  <div className="label">💰 {h.money}%</div>
-                </div>
-                <div className="circle health">
-                  <svg>
-                    <circle {...circleProps}></circle>
-                    <circle
-                      {...circleProps}
-                      style={{ '--percent': h.health }}
-                    ></circle>
-                  </svg>
-                  <div className="label">💪 {h.health}%</div>
-                </div>
+                <p>{h.text}</p>
               </div>
-              <p>{h.text}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
