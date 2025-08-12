@@ -1,4 +1,4 @@
-/* styles.css - Kart kaybolma ve yatay boşluk hataları düzeltildi (son sürüm) */
+/* styles.css - Kart hizalanma ve yatay boşluk düzeltildi (son sürüm) */
 
 /* Temel */
 body {
@@ -8,12 +8,12 @@ body {
   padding: 0;
 }
 
-/* CONTAINER: taşmayı önlemek için optimize edildi */
+/* CONTAINER: hizalanma için optimize edildi */
 .container {
-  max-width: 1060px; /* 1080px -> 1060px, daha güvenli */
+  max-width: 1060px;
   margin: 40px auto;
   background: white;
-  padding: 20px 20px; /* Dengeli padding */
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   box-sizing: border-box;
@@ -32,6 +32,7 @@ select, button {
   box-sizing: border-box;
 }
 
+/* Butonlar */
 button {
   background: #2196F3;
   color: white;
@@ -64,29 +65,29 @@ button:hover {
   100% { transform: rotate(360deg); }
 }
 
-/* GRID: yatay/dikey boşluk artırıldı */
+/* GRID: yatay boşluk artırıldı, hizalanma düzeltildi */
 .grid {
   display: grid;
   row-gap: 20px;
-  column-gap: 25px; /* Yatay boşluk artırıldı */
+  column-gap: 30px; /* Yatay boşluk artırıldı */
   margin-top: 20px;
   align-items: stretch;
   grid-auto-rows: 1fr;
+  max-width: 100%; /* Taşmayı önle */
   box-sizing: border-box;
 }
 
-/* Masaüstü (>=1024px): esnek sütunlar */
+/* Masaüstü (>=1024px): kartlar butonla hizalı */
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Minimum genişlik */
-    max-width: 100%;
+    grid-template-columns: repeat(4, calc((100% - 90px) / 4)); /* 3 boşluk * 30px = 90px */
   }
 }
 
 /* Tablet (>=768px ve <1024px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .grid {
-    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, calc((100% - 30px) / 2)); /* 1 boşluk * 30px */
   }
 }
 
@@ -105,7 +106,7 @@ button:hover {
   color: #222;
 }
 
-/* .result hover: sadeleştirildi */
+/* .result hover */
 .result:hover {
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
@@ -134,34 +135,34 @@ button:hover {
 /* ---------- CARD DÜZENİ ---------- */
 .card {
   position: relative;
-  width: calc(100% - 10px); /* Hafif boşluk payı */
+  width: 100%; /* Grid hesaplasın */
   min-height: 220px;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  overflow: auto; /* Kart kaybolmayı önle */
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  z-index: 2; /* Üst üste gelmeyi önle */
+  z-index: 2;
 }
 
 /* Mobilde daha kompakt */
 @media (max-width: 767px) {
   .card {
     min-height: 180px;
-    width: 100%; /* Mobilde tam genişlik */
+    width: 100%;
   }
 }
 
-/* Kart hover: animasyon kaldırıldı, sadece gölge */
+/* Kart hover: sadece gölge */
 @media (hover: hover) and (pointer: fine) {
   .grid .card:hover {
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   }
 }
 
-/* Dokunmatik cihazlarda hover tamamen kapalı */
+/* Dokunmatik cihazlarda hover kapalı */
 @media (hover: none) and (pointer: coarse) {
   .grid .card, .grid .card:hover {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
