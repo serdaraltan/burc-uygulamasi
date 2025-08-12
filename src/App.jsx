@@ -96,7 +96,11 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Günlük Burç Yorumları</h1>
+      <h1>
+        <span className="star-icon">✨</span>
+        Günlük Burç Yorumları
+        <span className="star-icon">✨</span>
+      </h1>
       <div className="header-date">{today}</div>
       <div className="form-row">
         <select value={sign} onChange={(e) => setSign(e.target.value)}>

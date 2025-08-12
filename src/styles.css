@@ -1,4 +1,4 @@
-/* styles.css - İkonlu dropdown stili, mobilde kalın text-shadow, header-date eklendi */
+/* styles.css - Başlık gradient, animasyon, Cinzel font, ikon ve buton renkleri eklendi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -25,6 +25,25 @@ body {
 /* Başlık */
 h1 {
   text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 2em;
+  background: linear-gradient(135deg, #6b7280, #9333ea);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Başlık ikonları */
+h1 .star-icon {
+  margin: 0 10px;
+  font-size: 1.2em;
+}
+
+/* Başlık animasyonu */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Başlık altına tarih */
@@ -57,16 +76,16 @@ select {
   align-items: center;
 }
 
-/* Butonlar */
+/* Butonlar: Mor-mavi gradient */
 button {
-  background: #2196F3;
+  background: linear-gradient(135deg, #6b7280, #9333ea);
   color: white;
   border: none;
   cursor: pointer;
 }
 
 button:hover {
-  background: #1976D2;
+  background: #7e22ce;
 }
 
 /* Mobil için form satırı alt alta */
@@ -107,7 +126,7 @@ button:hover {
 /* Yükleme spinner'ı */
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #2196F3;
+  border-top: 4px solid #9333ea; /* Tema uyumlu */
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -183,7 +202,7 @@ button:hover {
 /* Mobil için burç ismi görünürlüğünü artır */
 @media (max-width: 767px) {
   .card-title {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Kalın çerçeve */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   }
 }
 
