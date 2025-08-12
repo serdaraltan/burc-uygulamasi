@@ -12,18 +12,18 @@ function App() {
   console.log('State:', { sign, horoscope, allHoroscopes, loading, error });
 
   const signs = [
-    { value: 'koc', label: 'Koç', icon: '♈', gradient: { start: '#6b7280', end: '#9333ea' } },
-    { value: 'boga', label: 'Boğa', icon: '♉', gradient: { start: '#4c1d95', end: '#7c3aed' } },
-    { value: 'ikizler', label: 'İkizler', icon: '♊', gradient: { start: '#5b21b6', end: '#a78bfa' } },
-    { value: 'yengec', label: 'Yengeç', icon: '♋', gradient: { start: '#312e81', end: '#6d28d9' } },
-    { value: 'aslan', label: 'Aslan', icon: '♌', gradient: { start: '#4b0082', end: '#8b5cf6' } },
-    { value: 'basak', label: 'Başak', icon: '♍', gradient: { start: '#6d28d9', end: '#c4b5fd' } },
-    { value: 'terazi', label: 'Terazi', icon: '♎', gradient: { start: '#7e22ce', end: '#d8b4fe' } },
-    { value: 'akrep', label: 'Akrep', icon: '♏', gradient: { start: '#581c87', end: '#a855f7' } },
-    { value: 'yay', label: 'Yay', icon: '♐', gradient: { start: '#6b21a8', end: '#c084fc' } },
-    { value: 'oglak', label: 'Oğlak', icon: '♑', gradient: { start: '#3b0764', end: '#7c3aed' } },
-    { value: 'kova', label: 'Kova', icon: '♒', gradient: { start: '#5b21b6', end: '#e9d5ff' } },
-    { value: 'balik', label: 'Balık', icon: '♓', gradient: { start: '#4c1d95', end: '#a78bfa' } }
+    { value: 'koc', label: 'Koç', icon: '♈', gradient: { start: '#9333ea', end: '#f43f5e' } }, // Mor-kırmızı
+    { value: 'boga', label: 'Boğa', icon: '♉', gradient: { start: '#9333ea', end: '#4ade80' } }, // Mor-yeşil
+    { value: 'ikizler', label: 'İkizler', icon: '♊', gradient: { start: '#9333ea', end: '#60a5fa' } }, // Mor-mavi
+    { value: 'yengec', label: 'Yengeç', icon: '♋', gradient: { start: '#9333ea', end: '#22d3ee' } }, // Mor-camgöbeği
+    { value: 'aslan', label: 'Aslan', icon: '♌', gradient: { start: '#9333ea', end: '#f97316' } }, // Mor-turuncu
+    { value: 'basak', label: 'Başak', icon: '♍', gradient: { start: '#9333ea', end: '#a3e635' } }, // Mor-sarımsı
+    { value: 'terazi', label: 'Terazi', icon: '♎', gradient: { start: '#9333ea', end: '#ec4899' } }, // Mor-pembe
+    { value: 'akrep', label: 'Akrep', icon: '♏', gradient: { start: '#9333ea', end: '#06b6d4' } }, // Mor-turkuaz
+    { value: 'yay', label: 'Yay', icon: '♐', gradient: { start: '#9333ea', end: '#f59e0b' } }, // Mor-sarı
+    { value: 'oglak', label: 'Oğlak', icon: '♑', gradient: { start: '#9333ea', end: '#10b981' } }, // Mor-zümrüt
+    { value: 'kova', label: 'Kova', icon: '♒', gradient: { start: '#9333ea', end: '#8b5cf6' } }, // Mor-açık mor
+    { value: 'balik', label: 'Balık', icon: '♓', gradient: { start: '#9333ea', end: '#3b82f6' } } // Mor-koyu mavi
   ];
 
   // Hata mesajını 3 saniye sonra temizle
@@ -134,7 +134,7 @@ function App() {
         <div
           className="result"
           style={{
-            background: `linear-gradient(135deg, ${signs.find(s => s.value === sign)?.gradient.start || '#6b7280'}, ${signs.find(s => s.value === sign)?.gradient.end || '#9333ea'}), #2a2a2a`,
+            background: `linear-gradient(135deg, ${signs.find(s => s.value === sign)?.gradient.start || '#9333ea'}, ${signs.find(s => s.value === sign)?.gradient.end || '#f43f5e'}), #2a2a2a`,
             padding: "15px",
             borderRadius: "12px",
             boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
@@ -157,7 +157,7 @@ function App() {
       {allHoroscopes.length > 0 && (
         <div className="grid" style={{ marginTop: "20px" }}>
           {allHoroscopes.map(h => {
-            const signGradient = signs.find(s => s.value === h.sign.toLowerCase())?.gradient || { start: '#6b7280', end: '#9333ea' };
+            const signGradient = signs.find(s => s.value === h.sign.toLowerCase())?.gradient || { start: '#9333ea', end: '#f43f5e' };
             return (
               <div
                 key={h.sign}

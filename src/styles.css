@@ -1,4 +1,4 @@
-/* styles.css - Dropdown gri gradient, toast mor, burç kartları için görünürlük korundu */
+/* styles.css - Dropdown gri gradient, seçenekler mor-mavi, toast mor, görünürlük korundu */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -114,13 +114,20 @@ select {
 
 /* Dropdown seçenekleri */
 select option {
-  background: linear-gradient(135deg, #6b7280, #9333ea); /* Mor-mavi */
+  background: linear-gradient(135deg, #6b7280, #9333ea) !important; /* Mor-mavi */
   color: #e0e0e0 !important;
 }
 
 /* Dropdown hover rengi */
 select option:hover {
-  background: #5b21b6; /* Koyu mor */
+  background: #5b21b6 !important; /* Koyu mor */
+}
+
+/* Safari için fallback */
+@supports (-webkit-appearance: none) {
+  select option {
+    background: #6b7280 !important; /* Mor-mavi fallback */
+  }
 }
 
 /* Butonlar: Mor-mavi gradient */
