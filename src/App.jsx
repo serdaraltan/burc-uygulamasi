@@ -9,18 +9,18 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const signs = [
-    { value: 'koc', label: 'Koç' },
-    { value: 'boga', label: 'Boğa' },
-    { value: 'ikizler', label: 'İkizler' },
-    { value: 'yengec', label: 'Yengeç' },
-    { value: 'aslan', label: 'Aslan' },
-    { value: 'basak', label: 'Başak' },
-    { value: 'terazi', label: 'Terazi' },
-    { value: 'akrep', label: 'Akrep' },
-    { value: 'yay', label: 'Yay' },
-    { value: 'oglak', label: 'Oğlak' },
-    { value: 'kova', label: 'Kova' },
-    { value: 'balik', label: 'Balık' }
+    { value: 'koc', label: 'Koç', icon: '♈' },
+    { value: 'boga', label: 'Boğa', icon: '♉' },
+    { value: 'ikizler', label: 'İkizler', icon: '♊' },
+    { value: 'yengec', label: 'Yengeç', icon: '♋' },
+    { value: 'aslan', label: 'Aslan', icon: '♌' },
+    { value: 'basak', label: 'Başak', icon: '♍' },
+    { value: 'terazi', label: 'Terazi', icon: '♎' },
+    { value: 'akrep', label: 'Akrep', icon: '♏' },
+    { value: 'yay', label: 'Yay', icon: '♐' },
+    { value: 'oglak', label: 'Oğlak', icon: '♑' },
+    { value: 'kova', label: 'Kova', icon: '♒' },
+    { value: 'balik', label: 'Balık', icon: '♓' }
   ];
 
   // Hata mesajını 3 saniye sonra temizle
@@ -91,14 +91,20 @@ function App() {
     r: isMobile ? '34' : '38'
   };
 
+  // Bugünün tarihi
+  const today = formatDate(new Date());
+
   return (
     <div className="container">
       <h1>Günlük Burç Yorumları</h1>
+      <div className="header-date">{today}</div>
       <div className="form-row">
         <select value={sign} onChange={(e) => setSign(e.target.value)}>
           <option value="">Burcunuzu seçin</option>
           {signs.map(s => (
-            <option key={s.value} value={s.value}>{s.label}</option>
+            <option key={s.value} value={s.value}>
+              {s.icon} {s.label}
+            </option>
           ))}
         </select>
         <button onClick={fetchHoroscope} disabled={loading}>
