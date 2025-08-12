@@ -11,6 +11,21 @@ const DISPLAY = {
   yay: "Yay ♐", oglak: "Oğlak ♑", kova: "Kova ♒", balik: "Balık ♓"
 };
 
+const COLORS = {
+  koc: "#FF6B6B",     // kırmızı
+  boga: "#6BCB77",    // yeşil
+  ikizler: "#4D96FF", // mavi
+  yengec: "#FFD93D",  // sarı
+  aslan: "#FF914D",   // turuncu
+  basak: "#9D84B7",   // mor
+  terazi: "#FFB4B4",  // pembe
+  akrep: "#8E44AD",   // koyu mor
+  yay: "#F39C12",     // altın sarısı
+  oglak: "#95A5A6",   // gri
+  kova: "#00CEC9",    // turkuaz
+  balik: "#74B9FF"    // açık mavi
+};
+
 function normalizeSign(s){
   return s.toLowerCase()
     .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ş/g,'s')
@@ -81,6 +96,7 @@ export default function handler(req, res) {
     text,
     love,
     money,
-    health
+    health,
+    color: COLORS[key]
   });
 }

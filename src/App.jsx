@@ -51,19 +51,25 @@ function App() {
       </select>
       <button onClick={fetchHoroscope}>Yorumu Getir</button>
 
-      {horoscope && (
-        <div className="result">
-          <h2>{horoscope.sign} - {horoscope.date}</h2>
-          <p>{horoscope.text}</p>
-          <div className="stats">
-           ❤️ Aşk: {horoscope.love}%
-            <br />
-            💰 Para: {horoscope.money}%
-            <br />
-            💪 Sağlık: {horoscope.health}%
-          </div>
-        </div>
-      )}
+{horoscope && (
+  <div 
+    className="result" 
+    style={{ border: `2px solid ${horoscope.color}`, padding: "10px", borderRadius: "8px" }}
+  >
+    <h2 style={{ color: horoscope.color }}>
+      {horoscope.sign} - {horoscope.date}
+    </h2>
+    <p>{horoscope.text}</p>
+    <div className="stats">
+     ❤️ Aşk: {horoscope.love}%
+      <br />
+      💰 Para: {horoscope.money}%
+      <br />
+      💪 Sağlık: {horoscope.health}%
+    </div>
+  </div>
+)}
+
 
       {error && <p className="error">{error}</p>}
       
