@@ -1,4 +1,4 @@
-/* styles.css - Dropdown hover düzeltmesi: arka plan #DE638A, metin beyaz, diğer stiller korundu */
+/* styles.css - Dropdown hover düzeltmesi: arka plan #DE638A, metin beyaz, tarayıcı uyumluluğu güçlendirildi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -126,29 +126,34 @@ select option[value=""] {
 
 /* Dropdown hover rengi */
 select option:hover {
-  background: #DE638A !important; /* Pembe */
+  background-color: #DE638A !important; /* Pembe */
   color: #FFFFFF !important; /* Beyaz metin */
+  -webkit-text-fill-color: #FFFFFF !important; /* Safari için */
 }
 
 /* Seçili seçenek */
 select option:checked {
   background: #F7B9C4 !important; /* Açık pembe (menüyle aynı) */
+  color: #000000 !important; /* Siyah yazı */
 }
 
-/* Safari için fallback */
+/* Safari ve diğer tarayıcılar için fallback */
 @supports (-webkit-appearance: none) {
   select option {
     background: #F7B9C4 !important; /* Açık pembe fallback */
+    color: #000000 !important; /* Siyah yazı */
   }
   select option[value=""] {
     background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* İlk seçenek gradient */
   }
   select option:checked {
     background: #F7B9C4 !important; /* Açık pembe */
+    color: #000000 !important; /* Siyah yazı */
   }
   select option:hover {
-    background: #DE638A !important; /* Pembe */
+    background-color: #DE638A !important; /* Pembe */
     color: #FFFFFF !important; /* Beyaz metin */
+    -webkit-text-fill-color: #FFFFFF !important; /* Safari için */
   }
 }
 
