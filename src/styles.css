@@ -46,3 +46,8 @@ button:hover {
   padding: 15px;
   border-radius: 5px;
 }
+
+.stats {
+  margin-top: 10px;
+  font-size: 1.1em;
+}

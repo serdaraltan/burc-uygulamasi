@@ -6,9 +6,9 @@ const SIGNS = [
 ];
 
 const DISPLAY = {
-  koc: "Koç", boga: "Boğa", ikizler: "İkizler", yengec: "Yengeç",
-  aslan: "Aslan", basak: "Başak", terazi: "Terazi", akrep: "Akrep",
-  yay: "Yay", oglak: "Oğlak", kova: "Kova", balik: "Balık"
+  koc: "Koç ♈", boga: "Boğa ♉", ikizler: "İkizler ♊", yengec: "Yengeç ♋",
+  aslan: "Aslan ♌", basak: "Başak ♍", terazi: "Terazi ♎", akrep: "Akrep ♏",
+  yay: "Yay ♐", oglak: "Oğlak ♑", kova: "Kova ♒", balik: "Balık ♓"
 };
 
 function normalizeSign(s){
@@ -49,8 +49,18 @@ function generateHoroscope(key, dateStr) {
   const advice = advices[Math.floor(seededRandom(seed + "|a") * advices.length)];
 
   let text = template.replace("{focus}", focus).replace("{advice}", advice);
-  text += ` (${DISPLAY[key] || key})`;
-  return text;
+
+  // Şans yüzdeleri
+  const love = Math.floor(seededRandom(seed + "|love") * 101);
+  const money = Math.floor(seededRandom(seed + "|money") * 101);
+  const health = Math.floor(seededRandom(seed + "|health") * 101);
+
+  return { 
+    text, 
+    love, 
+    money, 
+    health 
+  };
 }
 
 export default function handler(req, res) {
@@ -63,11 +73,14 @@ export default function handler(req, res) {
 
   const now = new Date();
   const dateStr = now.toISOString().slice(0,10);
-  const text = generateHoroscope(key, dateStr);
+  const { text, love, money, health } = generateHoroscope(key, dateStr);
 
   res.status(200).json({
     sign: DISPLAY[key] || key,
     date: dateStr,
-    text
+    text,
+    love,
+    money,
+    health
   });
 }
