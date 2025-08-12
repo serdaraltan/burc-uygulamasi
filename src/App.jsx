@@ -6,7 +6,8 @@ function App() {
   const [horoscope, setHoroscope] = useState(null);
   const [error, setError] = useState(null);
   const [allHoroscopes, setAllHoroscopes] = useState([]);
-  const [flippedCards, setFlippedCards] = useState({}); // Flip durumlarını tutar
+  const [flippedCards, setFlippedCards] = useState({});
+  const [loading, setLoading] = useState(false); // Yeni state
 
   const signs = [
     { value: 'koc', label: 'Koç' },
@@ -30,25 +31,31 @@ function App() {
       setError('Lütfen bir burç seçin.');
       return;
     }
+    setLoading(true);
     try {
       const res = await fetch(`/api/horoscope?sign=${sign}`);
       if (!res.ok) throw new Error('API hatası');
       const data = await res.json();
       setHoroscope(data);
     } catch (err) {
-      setError('Horoskop alınırken hata oluştu.');
+      setError('Horoskop alınırken hata oluştu: ' + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const getAllHoroscopes = async () => {
     setError(null);
+    setLoading(true);
     try {
       const res = await fetch(`/api/all`);
       if (!res.ok) throw new Error('API hatası');
       const data = await res.json();
       setAllHoroscopes(data.horoscopes || []);
     } catch (err) {
-      setError('Tüm burçlar alınırken hata oluştu.');
+      setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,9 +75,13 @@ function App() {
           <option key={s.value} value={s.value}>{s.label}</option>
         ))}
       </select>
-      <button onClick={fetchHoroscope}>Yorumu Getir</button>
-      <button onClick={getAllHoroscopes}>Tüm Burçları Göster</button>
-
+      <button onClick={fetchHoroscope} disabled={loading}>
+        {loading ? 'Yükleniyor...' : 'Yorumu Getir'}
+      </button>
+      <button onClick={getAllHoroscopes} disabled={loading}>
+        {loading ? 'Yükleniyor...' : 'Tüm Burçları Göster'}
+      </button>
+      {loading && <div className="spinner">Yükleniyor...</div>}
       {horoscope && (
         <div
           className="result"
@@ -95,7 +106,6 @@ function App() {
           </div>
         </div>
       )}
-
       {allHoroscopes.length > 0 && (
         <div className="grid" style={{ marginTop: "20px" }}>
           {allHoroscopes.map(h => (
@@ -105,7 +115,6 @@ function App() {
               onClick={() => toggleFlip(h.sign)}
             >
               <div className="flip-card-inner">
-                {/* Ön yüz */}
                 <div
                   className="flip-card-front"
                   style={{
@@ -117,7 +126,6 @@ function App() {
                   </h2>
                   <p>{h.text}</p>
                 </div>
-                {/* Arka yüz */}
                 <div
                   className="flip-card-back"
                   style={{
@@ -138,7 +146,6 @@ function App() {
                       </svg>
                       <div className="label">❤️ {h.love}%</div>
                     </div>
-
                     <div className="circle money">
                       <svg>
                         <circle cx="40" cy="40" r="35"></circle>
@@ -170,7 +177,6 @@ function App() {
           ))}
         </div>
       )}
-
       {error && <p className="error">{error}</p>}
     </div>
   );
