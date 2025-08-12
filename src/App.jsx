@@ -66,12 +66,7 @@ function App() {
       )}
 
       {error && <p className="error">{error}</p>}
-      {horoscope && (
-        <div className="result">
-          <h2>{horoscope.sign} - {horoscope.date}</h2>
-          <p>{horoscope.text}</p>
-        </div>
-      )}
+      
     </div>
   );
 }
