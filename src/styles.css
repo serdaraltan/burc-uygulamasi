@@ -1,4 +1,4 @@
-/* styles.css - Başlık gradient, animasyon, Cinzel font, ikon ve buton renkleri eklendi */
+/* styles.css - card-title ve circle label masaüstü için de güncellendi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -126,7 +126,7 @@ button:hover {
 /* Yükleme spinner'ı */
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #9333ea; /* Tema uyumlu */
+  border-top: 4px solid #9333ea;
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -197,13 +197,7 @@ button:hover {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.2;
-}
-
-/* Mobil için burç ismi görünürlüğünü artır */
-@media (max-width: 767px) {
-  .card-title {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  }
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Tüm ekranlar için kalın çerçeve */
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -315,7 +309,7 @@ button:hover {
   transform: translate(-50%, -50%);
   font-size: 1em;
   font-weight: bold;
-  color: white;
+  color: #222; /* Tüm ekranlar için siyah */
   text-align: center;
 }
 
@@ -340,7 +334,6 @@ button:hover {
   }
   .circle .label {
     font-size: 0.9em;
-    color: #222;
   }
 }
 
