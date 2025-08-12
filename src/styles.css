@@ -1,4 +1,4 @@
-/* styles.css - Yeni Renk Kartelası, dropdown siyah yazı, tarih bold, görünürlük korundu */
+/* styles.css - Yeni kartela, dropdown ilk seçenek gradient, yorum kartı beyaz metin, boşluk eklendi */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -119,14 +119,19 @@ select option {
   color: #000000 !important; /* Siyah yazı */
 }
 
+/* İlk seçenek ("Burcunuzu Seçiniz") */
+select option[value=""] {
+  background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* Koyu mor-açık morlu pembe */
+}
+
 /* Dropdown hover rengi */
 select option:hover {
-  background: #F3D9E5 !important; /* Pastel pembe */
+  background: #DE638A !important; /* Pembe */
 }
 
 /* Seçili seçenek */
 select option:checked {
-  background: #DE638A !important; /* Pembe */
+  background: #F7B9C4 !important; /* Açık pembe (menüyle aynı) */
 }
 
 /* Safari için fallback */
@@ -134,8 +139,11 @@ select option:checked {
   select option {
     background: #F7B9C4 !important; /* Açık pembe fallback */
   }
+  select option[value=""] {
+    background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* İlk seçenek gradient */
+  }
   select option:checked {
-    background: #DE638A !important; /* Pembe */
+    background: #F7B9C4 !important; /* Açık pembe */
   }
 }
 
@@ -247,7 +255,7 @@ button:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #000000 !important; /* Siyah metin */
+  color: #FFFFFF !important; /* Beyaz metin */
   display: block;
   visibility: visible;
   opacity: 1;
@@ -256,7 +264,7 @@ button:hover {
 
 /* .result içindeki metinler */
 .result h2, .result p, .result .stats {
-  color: #000000 !important; /* Siyah metin */
+  color: #FFFFFF !important; /* Beyaz metin */
 }
 
 /* .result hover */
@@ -268,7 +276,7 @@ button:hover {
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
-  color: #000000 !important; /* Siyah metin (.result için) */
+  color: #FFFFFF !important; /* Beyaz metin (.result için) */
   display: block;
   visibility: visible;
   opacity: 1;
@@ -286,11 +294,12 @@ button:hover {
   color: #e0e0e0 !important; /* Açık gri (.card için) */
   visibility: visible;
   opacity: 1;
+  margin-bottom: 10px; /* Burç adı-tarih ile yorum arasında boşluk */
 }
 
-/* .result içindeki card-title için siyah metin */
+/* .result içindeki card-title için beyaz metin */
 .result .card-title {
-  color: #000000 !important; /* Siyah metin */
+  color: #FFFFFF !important; /* Beyaz metin */
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -421,9 +430,9 @@ button:hover {
   opacity: 1;
 }
 
-/* .result içindeki label için siyah metin */
+/* .result içindeki label için beyaz metin */
 .result .circle .label {
-  color: #000000 !important; /* Siyah metin */
+  color: #FFFFFF !important; /* Beyaz metin */
 }
 
 .circle.love { --stroke-color: #ff4d6d; }
@@ -461,7 +470,8 @@ button:hover {
   opacity: 1;
 }
 
-/* .result içindeki paragraf için siyah metin */
+/* .result içindeki paragraf için beyaz metin ve boşluk */
 .result p {
-  color: #000000 !important; /* Siyah metin */
+  color: #FFFFFF !important; /* Beyaz metin */
+  margin-top: 10px; /* Başlık-yorum arası boşluk */
 }
