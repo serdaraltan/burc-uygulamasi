@@ -1,4 +1,4 @@
-/* styles.css - Toast metni ortalandı, mobil yüzdelik yazıları siyah yapıldı */
+/* styles.css - Form satırı eklendi, butonlar yatay hizalı */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -27,11 +27,18 @@ h1 {
   text-align: center;
 }
 
+/* Form satırı (select ve butonlar için) */
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
 /* Form kontrolleri */
 select, button {
-  width: 100%;
   padding: 10px;
-  margin-top: 10px;
+  flex: 1; /* Eşit genişlik */
 }
 
 /* Butonlar */
@@ -44,6 +51,17 @@ button {
 
 button:hover {
   background: #1976D2;
+}
+
+/* Mobil için form satırı alt alta */
+@media (max-width: 767px) {
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  select, button {
+    width: 100%;
+  }
 }
 
 /* Toast notification: Ortalandı, metin ortalı */
@@ -59,7 +77,7 @@ button:hover {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
   animation: fadeInOut 3s ease forwards;
-  text-align: center; /* Metni ortala */
+  text-align: center;
 }
 
 /* Toast animasyonu */
@@ -287,7 +305,7 @@ button:hover {
   }
   .circle .label {
     font-size: 0.9em;
-    color: #222; /* Siyah, yorum yazılarıyla uyumlu */
+    color: #222;
   }
 }
 

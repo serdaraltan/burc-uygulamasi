@@ -33,6 +33,16 @@ function App() {
     }
   }, [error]);
 
+  // Tarih formatlama fonksiyonu: Gün.Ay.Yıl (Gün Adı)
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const dayName = date.toLocaleDateString('tr-TR', { weekday: 'long' });
+    return `${day}.${month}.${year} (${dayName})`;
+  };
+
   const fetchHoroscope = async () => {
     setError(null);
     setHoroscope(null);
@@ -84,18 +94,20 @@ function App() {
   return (
     <div className="container">
       <h1>Günlük Burç Yorumları</h1>
-      <select value={sign} onChange={(e) => setSign(e.target.value)}>
-        <option value="">Burcunuzu seçin</option>
-        {signs.map(s => (
-          <option key={s.value} value={s.value}>{s.label}</option>
-        ))}
-      </select>
-      <button onClick={fetchHoroscope} disabled={loading}>
-        {loading ? 'Yükleniyor...' : 'Yorumu Getir'}
-      </button>
-      <button onClick={getAllHoroscopes} disabled={loading}>
-        {loading ? 'Yükleniyor...' : 'Tüm Burçları Göster'}
-      </button>
+      <div className="form-row">
+        <select value={sign} onChange={(e) => setSign(e.target.value)}>
+          <option value="">Burcunuzu seçin</option>
+          {signs.map(s => (
+            <option key={s.value} value={s.value}>{s.label}</option>
+          ))}
+        </select>
+        <button onClick={fetchHoroscope} disabled={loading}>
+          {loading ? 'Yükleniyor...' : 'Yorumu Getir'}
+        </button>
+        <button onClick={getAllHoroscopes} disabled={loading}>
+          {loading ? 'Yükleniyor...' : 'Tüm Burçları Göster'}
+        </button>
+      </div>
       {loading && <div className="spinner">Yükleniyor...</div>}
       {error && <div className="toast">{error}</div>}
       {horoscope && (
@@ -110,7 +122,7 @@ function App() {
           }}
         >
           <h2 className="card-title" style={{ color: horoscope.color }}>
-            {horoscope.sign} - {horoscope.date}
+            {horoscope.sign} - {formatDate(horoscope.date)}
           </h2>
           <p>{horoscope.text}</p>
           <div className="stats">
