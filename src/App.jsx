@@ -63,7 +63,7 @@ function App() {
         ))}
       </select>
       <button onClick={fetchHoroscope}>Yorumu Getir</button>
-      <button onClick={getAllHoroscopes} style={{ marginLeft: '10px' }}>Tüm Burçları Göster</button>
+      <button onClick={getAllHoroscopes}>Tüm Burçları Göster</button>
 
       {horoscope && (
         <div
