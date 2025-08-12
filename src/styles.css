@@ -1,4 +1,4 @@
-/* styles.css - Yeni kartela, dropdown ilk seçenek gradient, yorum kartı beyaz metin, boşluk eklendi */
+/* styles.css - Dropdown hover düzeltmesi: arka plan #DE638A, metin beyaz, diğer stiller korundu */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -127,6 +127,7 @@ select option[value=""] {
 /* Dropdown hover rengi */
 select option:hover {
   background: #DE638A !important; /* Pembe */
+  color: #FFFFFF !important; /* Beyaz metin */
 }
 
 /* Seçili seçenek */
@@ -144,6 +145,10 @@ select option:checked {
   }
   select option:checked {
     background: #F7B9C4 !important; /* Açık pembe */
+  }
+  select option:hover {
+    background: #DE638A !important; /* Pembe */
+    color: #FFFFFF !important; /* Beyaz metin */
   }
 }
 
