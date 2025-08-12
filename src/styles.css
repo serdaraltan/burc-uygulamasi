@@ -1,4 +1,4 @@
-/* styles.css - Arka plan siyaha yakın, kartlar koyu, başlık ve tarih aynı blokta */
+/* styles.css - Koyu tema görünürlük düzeltmeleri */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -10,16 +10,18 @@
 body {
   font-family: Arial, sans-serif;
   background: #1a1a1a; /* Siyah yakın */
+  color: #e0e0e0; /* Varsayılan açık gri */
 }
 
 /* CONTAINER: Koyu gri arka plan */
 .container {
   max-width: 1060px;
   margin: 40px auto;
-  background: #2a2a2a; /* Koyu gri */
+  background: #2a2a2a;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  color: #e0e0e0;
 }
 
 /* Başlık bloğu */
@@ -34,7 +36,7 @@ body {
 h1 {
   font-family: 'Cinzel', serif;
   font-size: 2em;
-  color: white;
+  color: #e0e0e0;
   animation: fadeIn 1s ease forwards;
 }
 
@@ -53,7 +55,7 @@ h1 .star-icon {
 /* Başlık altına tarih */
 .header-date {
   background: none;
-  color: #e0e0e0; /* Açık gri, gradient uyumlu */
+  color: #e0e0e0;
   font-size: 1.1em;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -79,7 +81,7 @@ select {
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, #6b7280, #9333ea);
-  color: white;
+  color: #e0e0e0;
   border: 1px solid #9333ea;
   border-radius: 4px;
   -webkit-appearance: none;
@@ -91,7 +93,7 @@ select {
 /* Dropdown seçenekleri */
 select option {
   background: linear-gradient(135deg, #6b7280, #9333ea);
-  color: white;
+  color: #e0e0e0;
 }
 
 /* Dropdown hover rengi */
@@ -117,7 +119,7 @@ select option:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #ff4d4d;
-  color: white;
+  color: #e0e0e0;
   padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -186,7 +188,7 @@ select option:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #e0e0e0; /* Koyu tema için açık gri */
+  color: #e0e0e0;
 }
 
 /* .result hover */
@@ -198,7 +200,7 @@ select option:hover {
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
-  color: #e0e0e0; /* Koyu tema uyumlu */
+  color: #e0e0e0;
 }
 
 /* Başlık (emoji + isim hizalaması) */
@@ -209,7 +211,7 @@ select option:hover {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important; /* Tüm ekranlar için kalın çerçeve */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -230,7 +232,7 @@ select option:hover {
   flex-direction: column;
   justify-content: flex-start;
   z-index: 2;
-  color: #e0e0e0; /* Koyu tema için açık gri */
+  color: #e0e0e0;
 }
 
 /* Mobilde daha kompakt */
@@ -310,7 +312,7 @@ select option:hover {
 
 .circle circle:nth-child(2) {
   stroke: var(--stroke-color);
-  stroke-dasharray: 238.76; /* 2 * π * 38 (masaüstü) */
+  stroke-dasharray: 238.76;
   stroke-dashoffset: calc(238.76 - (var(--percent) * 238.76 / 100));
   transition: stroke-dashoffset 0.8s ease;
 }
@@ -322,7 +324,7 @@ select option:hover {
   transform: translate(-50%, -50%);
   font-size: 1em;
   font-weight: bold;
-  color: #222 !important; /* Tüm ekranlar için siyah */
+  color: #e0e0e0 !important; /* Koyu tema için açık gri */
   text-align: center;
 }
 
@@ -342,7 +344,7 @@ select option:hover {
   }
   .circle circle {
     stroke-width: 7;
-    stroke-dasharray: 213.63; /* 2 * π * 34 (mobil) */
+    stroke-dasharray: 213.63;
     stroke-dashoffset: calc(213.63 - (var(--percent) * 213.63 / 100));
   }
   .circle .label {
@@ -355,4 +357,5 @@ select option:hover {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1em;
+  color: #e0e0e0;
 }

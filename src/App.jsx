@@ -56,8 +56,10 @@ function App() {
       if (!res.ok) throw new Error('API hatası');
       const data = await res.json();
       setHoroscope(data);
+      console.log('Horoscope:', data); // Hata ayıklama
     } catch (err) {
       setError('Horoskop alınırken hata oluştu: ' + err.message);
+      console.error('Fetch error:', err);
     } finally {
       setLoading(false);
     }
@@ -74,6 +76,7 @@ function App() {
         throw new Error('Geçersiz veri formatı');
       }
       setAllHoroscopes(data.horoscopes);
+      console.log('All Horoscopes:', data.horoscopes); // Hata ayıklama
     } catch (err) {
       console.error('Tüm burçlar alınırken hata:', err.message);
       setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
@@ -127,14 +130,14 @@ function App() {
         <div
           className="result"
           style={{
-            background: `linear-gradient(135deg, ${horoscope.color}80, ${horoscope.color}20), #2a2a2a`,
+            background: `linear-gradient(135deg, rgba(${hexToRgb(horoscope.color)}, 0.5), rgba(${hexToRgb(horoscope.color)}, 0.2)), #2a2a2a`,
             padding: "15px",
             borderRadius: "12px",
             boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
             marginTop: "15px"
           }}
         >
-          <h2 className="card-title" style={{ color: horoscope.color }}>
+          <h2 className="card-title" style={{ color: '#e0e0e0' }}>
             {horoscope.sign} - {formatDate(horoscope.date)}
           </h2>
           <p>{horoscope.text}</p>
@@ -154,10 +157,10 @@ function App() {
               key={h.sign}
               className="card"
               style={{
-                background: `linear-gradient(135deg, ${h.color}80, ${h.color}20), #2a2a2a`
+                background: `linear-gradient(135deg, rgba(${hexToRgb(h.color)}, 0.5), rgba(${h.color}, 0.2)), #2a2a2a`
               }}
             >
-              <h2 className="card-title" style={{ color: h.color }}>
+              <h2 className="card-title" style={{ color: '#e0e0e0' }}>
                 {h.sign}
               </h2>
               <div className="circular-stats">
@@ -199,6 +202,15 @@ function App() {
       )}
     </div>
   );
+}
+
+// Hex to RGB for gradient (opacity desteği için)
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  return `${r}, ${g}, ${b}`;
 }
 
 export default App;
