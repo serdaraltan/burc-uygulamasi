@@ -1,3 +1,6 @@
+/* styles.css - Düzeltilmiş tam versiyon */
+
+/* Temel */
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
@@ -5,23 +8,27 @@ body {
   padding: 0;
 }
 
+/* CONTAINER: masaüstünde daha geniş alan */
 .container {
-  max-width: 500px;
-  margin: 50px auto;
+  max-width: 1100px;     /* 500px'den genişletildi */
+  margin: 40px auto;
   background: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* Başlık */
 h1 {
   text-align: center;
 }
 
+/* Form kontrolleri */
 select, button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
+  box-sizing: border-box;
 }
 
 button {
@@ -40,10 +47,13 @@ button:hover {
   margin-top: 10px;
 }
 
+/* GRID */
 .grid {
   display: grid;
   gap: 15px;
   margin-top: 20px;
+  align-items: stretch;     /* tum hücreler aynı hizada olsun */
+  grid-auto-rows: 1fr;      /* satırlar eşit yükseklikte olsun */
 }
 
 /* Masaüstü (>=1024px) */
@@ -65,19 +75,9 @@ button:hover {
   .grid {
     grid-template-columns: 1fr;
   }
-
-  /* Mobilde kart padding biraz küçülsün */
-  .result {
-    padding: 12px;
-  }
-
-  /* Mobilde başlık boyutu biraz küçülsün */
-  .card-title {
-    font-size: 1.2em;
-  }
 }
 
-/* Kartların iç görünümü */
+/* Tekli sonuç kartı (API'den tek burç geldiğinde kullanılan .result) */
 .result {
   padding: 15px;
   border-radius: 12px;
@@ -86,16 +86,19 @@ button:hover {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* .result hover (sabit tek kart görünüm) */
 .result:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
+/* Stats basit hali */
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
 }
 
+/* Başlık (emoji + isim hizalaması) */
 .card-title {
   display: flex;
   align-items: center;
@@ -110,84 +113,34 @@ button:hover {
   font-size: 1.5em;
 }
 
+/* ---------- GRADIENT & ANIMASYON AYARLARI ---------- */
+
 /* Gradient animasyonu */
 @keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.result {
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  color: #222;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background-size: 200% 200%;
-}
+/* ---------- FLIP-CARD DÜZENİ (grid içindeki kartlar) ---------- */
 
-/* Sadece grid içindeki kartlarda animasyon aktif */
-.grid .result:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  animation: gradientMove 4s ease infinite;
-}
-
-/* Mobilde hover devre dışı */
-@media (hover: none) and (pointer: coarse) {
-  .grid .result:hover {
-    transform: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    animation: none;
-  }
-}
-
-/* Fade-in animasyonu */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Grid kartları görünürken animasyon ekle */
-.grid .result {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-/* Kartların sırayla gelmesi için delay ekleme */
-.grid .result:nth-child(1) { animation-delay: 0.05s; }
-.grid .result:nth-child(2) { animation-delay: 0.1s; }
-.grid .result:nth-child(3) { animation-delay: 0.15s; }
-.grid .result:nth-child(4) { animation-delay: 0.2s; }
-.grid .result:nth-child(5) { animation-delay: 0.25s; }
-.grid .result:nth-child(6) { animation-delay: 0.3s; }
-.grid .result:nth-child(7) { animation-delay: 0.35s; }
-.grid .result:nth-child(8) { animation-delay: 0.4s; }
-.grid .result:nth-child(9) { animation-delay: 0.45s; }
-.grid .result:nth-child(10) { animation-delay: 0.5s; }
-.grid .result:nth-child(11) { animation-delay: 0.55s; }
-.grid .result:nth-child(12) { animation-delay: 0.6s; }
-
+/* Flip kartın kendisi: grid elemanı olarak davranır */
 .flip-card {
-  background-color: transparent;
+  position: relative;      /* child absolute'leri buna göre yerleşir */
+  display: block;
   width: 100%;
-  height: 100%;
+  min-height: 220px;       /* Önemli: içeriğin görünmesi için min-height */
   perspective: 1000px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
+/* Mobilde biraz daha kompakt */
+@media (max-width: 767px) {
+  .flip-card { min-height: 180px; }
+}
+
+/* İç kısım (3D dönüş) */
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -196,64 +149,86 @@ button:hover {
   transform-style: preserve-3d;
 }
 
-/* Kart döndüğünde */
+/* Döndürme sınıfı */
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-/* Ön ve arka yüz */
+/* Ön ve arka yüzler */
 .flip-card-front,
 .flip-card-back {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   backface-visibility: hidden;
-  overflow: hidden; /* taşma engelleme */
-}
-
-.flip-card-front {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-size: 200% 200%; /* gradient animasyon için */
 }
 
+/* Arka yüz 180 derece döndürülmüş */
 .flip-card-back {
   transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   text-align: center;
+  justify-content: center;
 }
 
-/* Mobil optimizasyon */
-@media (max-width: 767px) {
-  .flip-card {
-    min-height: 200px; /* mobilde minimum yükseklik */
-  }
-  .flip-card-front, .flip-card-back {
-    padding: 12px;
-  }
-  .flip-card-front p {
-    font-size: 0.9em;
-  }
-  .flip-card-back .stats {
-    font-size: 1em;
+/* GRID'deki kartlarda hover animasyonu (sadece masaüstünde) */
+@media (hover: hover) and (pointer: fine) {
+  .grid .flip-card:hover .flip-card-front,
+  .grid .flip-card:hover .flip-card-back {
+    animation: gradientMove 4s ease infinite;
+    transform: translateY(-4px); /* hover etkisi */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   }
 }
 
-/* Hover efektlerini dokunmatik cihazlarda devre dışı bırak */
+/* Dokunmatik cihazlarda hover animasyonunu kapat */
 @media (hover: none) and (pointer: coarse) {
-  .grid .result:hover {
+  .grid .flip-card:hover .flip-card-front,
+  .grid .flip-card:hover .flip-card-back {
+    animation: none;
     transform: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    animation: none;
   }
 }
 
-/* Arka yüz stats tasarımı */
+/* ---------- FADE-IN ANIMASYONU (grid kartları için) ---------- */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid içindeki flip-card'lara uygula */
+.grid .flip-card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Kartların sırayla gelmesi için delay (flip-card için) */
+.grid .flip-card:nth-child(1) { animation-delay: 0.05s; }
+.grid .flip-card:nth-child(2) { animation-delay: 0.1s; }
+.grid .flip-card:nth-child(3) { animation-delay: 0.15s; }
+.grid .flip-card:nth-child(4) { animation-delay: 0.2s; }
+.grid .flip-card:nth-child(5) { animation-delay: 0.25s; }
+.grid .flip-card:nth-child(6) { animation-delay: 0.3s; }
+.grid .flip-card:nth-child(7) { animation-delay: 0.35s; }
+.grid .flip-card:nth-child(8) { animation-delay: 0.4s; }
+.grid .flip-card:nth-child(9) { animation-delay: 0.45s; }
+.grid .flip-card:nth-child(10) { animation-delay: 0.5s; }
+.grid .flip-card:nth-child(11) { animation-delay: 0.55s; }
+.grid .flip-card:nth-child(12) { animation-delay: 0.6s; }
+
+/* ---------- ARKA YÜZ - COLORFUL STATS / CIRCULAR STATS ---------- */
+
+/* İstersen önceki oval stat-item düzeni kullanılabilir (kommente edersen) */
 .colorful-stats {
   display: flex;
   flex-direction: column;
@@ -270,35 +245,22 @@ button:hover {
   font-weight: bold;
   padding: 8px 14px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.18);
   backdrop-filter: blur(4px);
   color: white;
   min-width: 120px;
   justify-content: center;
 }
 
-/* Özel renkler */
-.stat-item.love {
-  border: 2px solid #ff4d6d;
-}
+.stat-item.love { border: 2px solid #ff4d6d; }
+.stat-item.money { border: 2px solid #4CAF50; }
+.stat-item.health { border: 2px solid #00bcd4; }
 
-.stat-item.money {
-  border: 2px solid #4CAF50;
-}
-
-.stat-item.health {
-  border: 2px solid #00bcd4;
-}
-
-/* Mobilde küçültme */
 @media (max-width: 767px) {
-  .stat-item {
-    font-size: 1em;
-    padding: 6px 10px;
-    min-width: 100px;
-  }
+  .stat-item { font-size: 1em; padding: 6px 10px; min-width: 100px; }
 }
 
+/* Circular progress */
 .circular-stats {
   display: flex;
   gap: 20px;
@@ -333,7 +295,6 @@ button:hover {
   transition: stroke-dashoffset 0.8s ease;
 }
 
-/* Label ortada */
 .circle .label {
   position: absolute;
   top: 50%;
@@ -345,15 +306,6 @@ button:hover {
   text-align: center;
 }
 
-/* Renkler */
-.circle.love {
-  --stroke-color: #ff4d6d;
-}
-
-.circle.money {
-  --stroke-color: #4CAF50;
-}
-
-.circle.health {
-  --stroke-color: #00bcd4;
-}
+.circle.love { --stroke-color: #ff4d6d; }
+.circle.money { --stroke-color: #4CAF50; }
+.circle.health { --stroke-color: #00bcd4; }
