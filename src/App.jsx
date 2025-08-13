@@ -1,50 +1,15 @@
 import { useState, useEffect } from 'react';
 import './styles.css';
 
-function HoroscopeCard({ title, text, love, money, health, color, circleProps }) {
-  return (
-    <div
-      className="horoscope-card"
-      style={{
-        background: `linear-gradient(135deg, ${color} 0%, ${color}33 100%)`
-      }}
-    >
-      <h2>{title}</h2>
-      <div className="circular-stats">
-        <div className="circle love">
-          <svg>
-            <circle {...circleProps}></circle>
-            <circle {...circleProps} style={{ '--percent': love }}></circle>
-          </svg>
-          <div className="label">❤️ {love}%</div>
-        </div>
-        <div className="circle money">
-          <svg>
-            <circle {...circleProps}></circle>
-            <circle {...circleProps} style={{ '--percent': money }}></circle>
-          </svg>
-          <div className="label">💰 {money}%</div>
-        </div>
-        <div className="circle health">
-          <svg>
-            <circle {...circleProps}></circle>
-            <circle {...circleProps} style={{ '--percent': health }}></circle>
-          </svg>
-          <div className="label">💪 {health}%</div>
-        </div>
-      </div>
-      <p>{text}</p>
-    </div>
-  );
-}
-
 function App() {
   const [sign, setSign] = useState('');
   const [horoscope, setHoroscope] = useState(null);
-  const [allHoroscopes, setAllHoroscopes] = useState([]);
   const [error, setError] = useState(null);
+  const [allHoroscopes, setAllHoroscopes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [circleProps, setCircleProps] = useState({ cx: '45', cy: '45', r: '38' });
+
+  // State kontrolü için log
+  console.log('State:', { sign, horoscope, allHoroscopes, loading, error });
 
   const signs = [
     { value: 'koc', label: 'Koç', icon: '♈' },
@@ -61,19 +26,17 @@ function App() {
     { value: 'balik', label: 'Balık', icon: '♓' }
   ];
 
+  // Hata mesajını 3 saniye sonra temizle
   useEffect(() => {
-    const resizeHandler = () => {
-      if (window.innerWidth < 768) {
-        setCircleProps({ cx: '32.5', cy: '32.5', r: '28' });
-      } else {
-        setCircleProps({ cx: '45', cy: '45', r: '38' });
-      }
-    };
-    resizeHandler();
-    window.addEventListener('resize', resizeHandler);
-    return () => window.removeEventListener('resize', resizeHandler);
-  }, []);
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
+  // Tarih formatlama fonksiyonu: Gün.Ay.Yıl (Gün Adı)
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     const day = date.getDate().toString().padStart(2, '0');
@@ -84,46 +47,78 @@ function App() {
   };
 
   const fetchHoroscope = async () => {
+    setError(null);
+    setHoroscope(null);
     if (!sign) {
-      setError('Önce burcunuzu seçin');
+      setError('Önce Burcunuzu Seçiniz');
       return;
     }
     setLoading(true);
-    setHoroscope(null);
     try {
       const res = await fetch(`/api/horoscope?sign=${sign}`);
-      if (!res.ok) throw new Error('API hatası');
+      console.log('Fetch Horoscope Response:', res.status, res.statusText);
+      if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
+      console.log('Horoscope Data:', data);
       setHoroscope(data);
     } catch (err) {
-      setError(err.message);
+      setError('Horoskop alınırken hata oluştu: ' + err.message);
+      console.error('Fetch error:', err);
     } finally {
       setLoading(false);
     }
   };
 
   const getAllHoroscopes = async () => {
+    setError(null);
     setLoading(true);
     try {
       const res = await fetch(`/api/all`);
-      if (!res.ok) throw new Error('API hatası');
+      console.log('Fetch All Horoscopes Response:', res.status, res.statusText);
+      if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
-      setAllHoroscopes(data.horoscopes || []);
+      console.log('All Horoscopes Data:', data);
+      if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
+        throw new Error('Geçersiz veri formatı');
+      }
+      setAllHoroscopes(data.horoscopes);
     } catch (err) {
-      setError(err.message);
+      console.error('Tüm burçlar alınırken hata:', err.message);
+      setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
+      setAllHoroscopes([]);
     } finally {
       setLoading(false);
     }
   };
 
+  // Mobil için SVG boyutları
+  const isMobile = window.innerWidth < 768;
+  const circleProps = {
+    cx: isMobile ? '40' : '45',
+    cy: isMobile ? '40' : '45',
+    r: isMobile ? '34' : '38'
+  };
+
+  // Bugünün tarihi
+  const today = formatDate(new Date());
+
   return (
     <div className="container">
-      <h1>✨ Günlük Burç Yorumları ✨</h1>
-      <div>
+      <div className="header-block">
+        <h1>
+          <span className="star-icon">✨</span>
+          Günlük Burç Yorumları
+          <span className="star-icon">✨</span>
+        </h1>
+        <div className="header-date">{today}</div>
+      </div>
+      <div className="form-row">
         <select value={sign} onChange={(e) => setSign(e.target.value)}>
           <option value="">Burcunuzu seçin</option>
           {signs.map(s => (
-            <option key={s.value} value={s.value}>{s.icon} {s.label}</option>
+            <option key={s.value} value={s.value}>
+              {s.icon} {s.label}
+            </option>
           ))}
         </select>
         <button onClick={fetchHoroscope} disabled={loading}>
@@ -133,34 +128,78 @@ function App() {
           {loading ? 'Yükleniyor...' : 'Tüm Burçları Göster'}
         </button>
       </div>
-
+      {loading && <div className="spinner">Yükleniyor...</div>}
       {error && <div className="toast">{error}</div>}
-
       {horoscope && (
-        <HoroscopeCard
-          title={`${horoscope.sign} - ${formatDate(horoscope.date)}`}
-          text={horoscope.text}
-          love={horoscope.love}
-          money={horoscope.money}
-          health={horoscope.health}
-          color={horoscope.color}
-          circleProps={circleProps}
-        />
+        <div
+          className="result"
+          style={{
+            background: 'linear-gradient(135deg, #4A3267, #C6BADE), #1f2937',
+            padding: '15px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+            marginTop: '15px'
+          }}
+        >
+          <h2 className="card-title">{horoscope.sign} - {formatDate(horoscope.date)}</h2>
+          <p>{horoscope.text}</p>
+          <div className="stats">
+            ❤️ Aşk: {horoscope.love}%
+            <br />
+            💰 Para: {horoscope.money}%
+            <br />
+            💪 Sağlık: {horoscope.health}%
+          </div>
+        </div>
       )}
-
       {allHoroscopes.length > 0 && (
-        <div className="grid">
+        <div className="grid" style={{ marginTop: '20px' }}>
           {allHoroscopes.map(h => (
-            <HoroscopeCard
+            <div
               key={h.sign}
-              title={h.sign}
-              text={h.text}
-              love={h.love}
-              money={h.money}
-              health={h.health}
-              color={h.color}
-              circleProps={circleProps}
-            />
+              className="card"
+              style={{
+                background: 'linear-gradient(135deg, #4A3267, #000000), #1f2937',
+                padding: '15px',
+                borderRadius: '12px',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
+              }}
+            >
+              <h2 className="card-title">{h.sign}</h2>
+              <div className="circular-stats">
+                <div className="circle love">
+                  <svg>
+                    <circle {...circleProps}></circle>
+                    <circle
+                      {...circleProps}
+                      style={{ '--percent': h.love }}
+                    ></circle>
+                  </svg>
+                  <div className="label">❤️ {h.love}%</div>
+                </div>
+                <div className="circle money">
+                  <svg>
+                    <circle {...circleProps}></circle>
+                    <circle
+                      {...circleProps}
+                      style={{ '--percent': h.money }}
+                    ></circle>
+                  </svg>
+                  <div className="label">💰 {h.money}%</div>
+                </div>
+                <div className="circle health">
+                  <svg>
+                    <circle {...circleProps}></circle>
+                    <circle
+                      {...circleProps}
+                      style={{ '--percent': h.health }}
+                    ></circle>
+                  </svg>
+                  <div className="label">💪 {h.health}%</div>
+                </div>
+              </div>
+              <p>{h.text}</p>
+            </div>
           ))}
         </div>
       )}

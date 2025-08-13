@@ -1,69 +1,421 @@
-/* Ortak kart stili */
-.horoscope-card {
+/* styles.css - Dropdown: "Burcunuzu Seçiniz" ve seçili burç ortalı, diğer seçenekler sola yaslı, hover #DE638A */
+
+/* Temel: Tarayıcı varsayılanlarını sıfırla */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #1a1a1a; /* Siyah yakın */
+  color: #e0e0e0 !important; /* Açık gri */
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* CONTAINER: Koyu gri arka plan */
+.container {
+  max-width: 1060px;
+  margin: 40px auto;
+  background: #1f2937; /* Koyu gri taban */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  color: #e0e0e0 !important;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Başlık bloğu */
+.header-block {
+  background: linear-gradient(135deg, #4A3267, #C6BADE); /* Koyu mor-açık morlu pembe */
   padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #FFFFFF !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 250px;
+  border-radius: 8px;
+  text-align: center;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
 }
 
-.horoscope-card h2 {
+/* Başlık */
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2em;
+  color: #e0e0e0 !important;
+  animation: fadeIn 1s ease forwards;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Başlık ikonları */
+h1 .star-icon {
+  margin: 0 10px;
+  font-size: 1.2em;
+  color: #e0e0e0 !important;
+}
+
+/* Başlık animasyonu */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Başlık altına tarih */
+.header-date {
+  background: none;
+  color: #e0e0e0 !important;
+  font-size: 1.1em;
+  font-weight: bold; /* Tarih bold */
+  margin-top: 5px;
   margin-bottom: 10px;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
-.horoscope-card p {
-  flex: 1;
+/* Form satırı (select ve butonlar için) */
+.form-row {
+  display: flex;
+  gap: 10px;
   margin-top: 10px;
-  font-size: 1em;
-  overflow-y: auto;
-  max-height: 100px;
+  align-items: center;
+  visibility: visible;
+  opacity: 1;
+  z-index: 3;
 }
 
-/* Grid ayarları */
+/* Form kontrolleri */
+select, button {
+  padding: 10px;
+  flex: 1;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Dropdown stili */
+select {
+  font-size: 1em;
+  background: #F7B9C4; /* Açık pembe */
+  color: #000000 !important; /* Siyah yazı */
+  border: 1px solid #4A3267;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  text-align: center; /* Seçili burç ve "Burcunuzu Seçiniz" ortalı */
+}
+
+/* Dropdown seçenekleri */
+select option {
+  background: #F7B9C4 !important; /* Açık pembe */
+  color: #000000 !important; /* Siyah yazı */
+  text-align: left; /* Burç seçenekleri sola yaslı */
+}
+
+/* İlk seçenek ("Burcunuzu Seçiniz") */
+select option[value=""] {
+  background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* Koyu mor-açık morlu pembe */
+  text-align: center; /* "Burcunuzu Seçiniz" ortalı */
+}
+
+/* Dropdown hover rengi */
+select option:hover {
+  background-color: #DE638A !important; /* Pembe */
+  color: #FFFFFF !important; /* Beyaz metin */
+  -webkit-text-fill-color: #FFFFFF !important; /* Safari için */
+}
+
+/* Seçili seçenek */
+select option:checked {
+  background: #F7B9C4 !important; /* Açık pembe (menüyle aynı) */
+  color: #000000 !important; /* Siyah yazı */
+}
+
+/* Safari ve diğer tarayıcılar için fallback */
+@supports (-webkit-appearance: none) {
+  select option {
+    background: #F7B9C4 !important; /* Açık pembe fallback */
+    color: #000000 !important; /* Siyah yazı */
+    text-align: left; /* Burç seçenekleri sola yaslı */
+  }
+  select option[value=""] {
+    background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* İlk seçenek gradient */
+    text-align: center; /* "Burcunuzu Seçiniz" ortalı */
+  }
+  select option:checked {
+    background: #F7B9C4 !important; /* Açık pembe */
+    color: #000000 !important; /* Siyah yazı */
+  }
+  select option:hover {
+    background-color: #DE638A !important; /* Pembe */
+    color: #FFFFFF !important; /* Beyaz metin */
+    -webkit-text-fill-color: #FFFFFF !important; /* Safari için */
+  }
+}
+
+/* Butonlar: Tek renk açık morlu pembe */
+button {
+  background: #C6BADE; /* Açık morlu pembe */
+  color: #000000 !important; /* Siyah metin */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #F7B9C4; /* Açık pembe */
+}
+
+/* Mobil için form satırı alt alta */
+@media (max-width: 767px) {
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  select, button {
+    width: 100%;
+  }
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #4A3267; /* Koyu mor */
+  color: #e0e0e0 !important;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: fadeInOut 3s ease forwards;
+  text-align: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Toast animasyonu */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  10% { opacity: 1; transform: translate(-50%, -50%); }
+  90% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -60%); }
+}
+
+/* Yükleme spinner'ı */
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4A3267; /* Koyu mor */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: 10px auto;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* GRID: yatay/dikey boşluk */
 .grid {
   display: grid;
-  gap: 20px;
+  gap: 30px;
   margin-top: 20px;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+  max-width: 100%;
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
 }
 
+/* Masaüstü (>=1024px): butonla hizalı */
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Tablet (>=768px ve <1024px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* Mobil (<768px) */
 @media (max-width: 767px) {
   .grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Circular stats */
+/* Tekli sonuç kartı (API'den tek burç geldiğinde kullanılan .result) */
+.result {
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  color: #FFFFFF !important; /* Beyaz metin */
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+}
+
+/* .result içindeki metinler */
+.result h2, .result p, .result .stats {
+  color: #FFFFFF !important; /* Beyaz metin */
+}
+
+/* .result hover */
+.result:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Stats basit hali */
+.stats {
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #FFFFFF !important; /* Beyaz metin (.result için) */
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Başlık (emoji + isim hizalaması) */
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4em;
+  font-weight: bold;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
+  visibility: visible;
+  opacity: 1;
+  margin-bottom: 10px; /* Burç adı-tarih ile yorum arasında boşluk */
+}
+
+/* .result içindeki card-title için beyaz metin */
+.result .card-title {
+  color: #FFFFFF !important; /* Beyaz metin */
+}
+
+/* Emoji biraz daha büyük görünsün */
+.card-title::first-letter {
+  font-size: 1.5em;
+}
+
+/* ---------- CARD DÜZENİ ---------- */
+.card {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 2;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Mobilde daha kompakt */
+@media (max-width: 767px) {
+  .card {
+    min-height: 180px;
+  }
+}
+
+/* Kart hover: sadece gölge */
+@media (hover: hover) and (pointer: fine) {
+  .grid .card:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+}
+
+/* Dokunmatik cihazlarda hover kapalı */
+@media (hover: none) and (pointer: coarse) {
+  .grid .card, .grid .card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+}
+
+/* ---------- FADE-IN ANIMASYONU (grid kartları için) ---------- */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid içindeki kartlara uygula */
+.grid .card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Kartların sırayla gelmesi için delay */
+.grid .card:nth-child(1) { animation-delay: 0.05s; }
+.grid .card:nth-child(2) { animation-delay: 0.1s; }
+.grid .card:nth-child(3) { animation-delay: 0.15s; }
+.grid .card:nth-child(4) { animation-delay: 0.2s; }
+.grid .card:nth-child(5) { animation-delay: 0.25s; }
+.grid .card:nth-child(6) { animation-delay: 0.3s; }
+.grid .card:nth-child(7) { animation-delay: 0.35s; }
+.grid .card:nth-child(8) { animation-delay: 0.4s; }
+.grid .card:nth-child(9) { animation-delay: 0.45s; }
+.grid .card:nth-child(10) { animation-delay: 0.5s; }
+.grid .card:nth-child(11) { animation-delay: 0.55s; }
+.grid .card:nth-child(12) { animation-delay: 0.6s; }
+
+/* ---------- CIRCULAR STATS ---------- */
 .circular-stats {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin: 10px 0;
+  visibility: visible;
+  opacity: 1;
 }
 
 .circle {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .circle svg {
   transform: rotate(-90deg);
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .circle circle {
@@ -75,8 +427,8 @@
 
 .circle circle:nth-child(2) {
   stroke: var(--stroke-color);
-  stroke-dasharray: 219.91;
-  stroke-dashoffset: calc(219.91 - (var(--percent) * 219.91 / 100));
+  stroke-dasharray: 238.76;
+  stroke-dashoffset: calc(238.76 - (var(--percent) * 238.76 / 100));
   transition: stroke-dashoffset 0.8s ease;
 }
 
@@ -85,31 +437,56 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 0.85em;
+  font-size: 1em;
   font-weight: bold;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
   text-align: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* .result içindeki label için beyaz metin */
+.result .circle .label {
+  color: #FFFFFF !important; /* Beyaz metin */
 }
 
 .circle.love { --stroke-color: #ff4d6d; }
 .circle.money { --stroke-color: #4CAF50; }
 .circle.health { --stroke-color: #00bcd4; }
 
-/* Mobil için küçültme */
+/* Mobil için circular stats */
 @media (max-width: 767px) {
   .circle {
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
   }
   .circle svg {
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
   }
   .circle circle {
     stroke-width: 7;
-    stroke-dasharray: 204.2;
-    stroke-dashoffset: calc(204.2 - (var(--percent) * 204.2 / 100));
+    stroke-dasharray: 213.63;
+    stroke-dashoffset: calc(213.63 - (var(--percent) * 213.63 / 100));
   }
   .circle .label {
-    font-size: 0.75em;
+    font-size: 0.9em;
   }
+}
+
+/* Yorum metni için hizalama */
+.card p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: #e0e0e0 !important; /* Açık gri (.card için) */
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* .result içindeki paragraf için beyaz metin ve boşluk */
+.result p {
+  color: #FFFFFF !important; /* Beyaz metin */
+  margin-top: 10px; /* Başlık-yorum arası boşluk */
 }
