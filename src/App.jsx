@@ -95,7 +95,6 @@ function App() {
       }
       const data = await res.json();
       console.log('Horoscope Data:', data);
-      // API response'unu mevcut formata uyarla
       setHoroscope({
         sign: data.sign || sign,
         date: data.date || new Date().toISOString(),
@@ -127,7 +126,6 @@ function App() {
       if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
         throw new Error(t('invalidDataFormat'));
       }
-      // API response'unu mevcut formata uyarla
       setAllHoroscopes(data.horoscopes.map(h => ({
         sign: h.sign || '',
         text: h.text || h.horoscope || 'No comment available',
@@ -142,11 +140,6 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Dil değiştirme fonksiyonu
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
   };
 
   // Mobil için SVG boyutları
@@ -169,11 +162,6 @@ function App() {
           <span className="star-icon">✨</span>
         </h1>
         <div className="header-date">{today}</div>
-        {/* Dil değiştirme butonları */}
-        <div className="language-switcher">
-          <button onClick={() => changeLanguage('tr')}>Türkçe</button>
-          <button onClick={() => changeLanguage('en')}>English</button>
-        </div>
       </div>
       <div className="form-row">
         <select 

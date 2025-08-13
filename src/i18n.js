@@ -44,10 +44,10 @@ i18n
   .use(LanguageDetector)
   .init({
     resources,
-    fallbackLng: 'tr', // Varsayılan Türkçe (Türkiye hedefli app için)
+    fallbackLng: 'tr',
     detection: {
       order: ['navigator', 'querystring', 'cookie', 'localStorage'],
-      caches: ['cookie'] // Dil seçimini cookie'de sakla
+      caches: ['cookie']
     },
     interpolation: {
       escapeValue: false
