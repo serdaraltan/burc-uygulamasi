@@ -55,9 +55,7 @@ function App() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`https://aztro.sameerkumar.website/?sign=${sign}&day=today`, {
-        method: 'POST'
-      });
+      const res = await fetch(`https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=today`);
       console.log('Fetch Horoscope Response:', res.status, res.statusText);
       if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
@@ -65,10 +63,10 @@ function App() {
       setHoroscope({
         sign: signs.find(s => s.value === sign).label,
         date: new Date().toISOString(),
-        text: data.description,
-        love: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100
-        money: Math.floor(Math.random() * (100 - 60 + 1)) + 60,
-        health: Math.floor(Math.random() * (100 - 60 + 1)) + 60
+        text: data.data.horoscope_data,
+        love: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
+        money: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
+        health: Math.floor(Math.random() * (100 - 60 + 1)) + 60 // Rastgele %60-100 (API'de yok)
       });
     } catch (err) {
       setError('Horoskop alınırken hata oluştu: ' + err.message);
@@ -83,17 +81,15 @@ function App() {
     setLoading(true);
     try {
       const requests = signs.map(s =>
-        fetch(`https://aztro.sameerkumar.website/?sign=${s.value}&day=today`, {
-          method: 'POST'
-        }).then(res => {
+        fetch(`https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${s.value}&day=today`).then(res => {
           if (!res.ok) throw new Error(`API hatası: ${res.status}`);
           return res.json().then(data => ({
             sign: s.label,
             date: new Date().toISOString(),
-            text: data.description,
-            love: Math.floor(Math.random() * (100 - 60 + 1)) + 60,
-            money: Math.floor(Math.random() * (100 - 60 + 1)) + 60,
-            health: Math.floor(Math.random() * (100 - 60 + 1)) + 60
+            text: data.data.horoscope_data,
+            love: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
+            money: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
+            health: Math.floor(Math.random() * (100 - 60 + 1)) + 60 // Rastgele %60-100 (API'de yok)
           }));
         })
       );
