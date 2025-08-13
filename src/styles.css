@@ -10,10 +10,7 @@
 body {
   font-family: Arial, sans-serif;
   background: #1a1a1a; /* Siyah yakın */
-  color: #e0e0e0 !important; /* Açık gri */
-  display: block;
-  visibility: visible;
-  opacity: 1;
+  color: #e0e0e0;
 }
 
 /* CONTAINER: Koyu gri arka plan */
@@ -24,11 +21,6 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  color: #e0e0e0 !important;
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  z-index: 1;
 }
 
 /* Başlık bloğu */
@@ -37,28 +29,21 @@ body {
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  z-index: 2;
 }
 
 /* Başlık */
 h1 {
   font-family: 'Cinzel', serif;
   font-size: 2em;
-  color: #e0e0e0 !important;
+  color: #e0e0e0;
   animation: fadeIn 1s ease forwards;
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Başlık ikonları */
 h1 .star-icon {
   margin: 0 10px;
   font-size: 1.2em;
-  color: #e0e0e0 !important;
+  color: #e0e0e0;
 }
 
 /* Başlık animasyonu */
@@ -70,14 +55,11 @@ h1 .star-icon {
 /* Başlık altına tarih */
 .header-date {
   background: none;
-  color: #e0e0e0 !important;
+  color: #e0e0e0;
   font-size: 1.1em;
   font-weight: bold; /* Tarih bold */
   margin-top: 5px;
   margin-bottom: 10px;
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Form satırı (select ve butonlar için) */
@@ -86,25 +68,19 @@ h1 .star-icon {
   gap: 10px;
   margin-top: 10px;
   align-items: center;
-  visibility: visible;
-  opacity: 1;
-  z-index: 3;
 }
 
 /* Form kontrolleri */
 select, button {
   padding: 10px;
   flex: 1;
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Dropdown stili */
 select {
   font-size: 1em;
   background: #F7B9C4; /* Açık pembe */
-  color: #000000 !important; /* Siyah yazı */
+  color: #000000;
   border: 1px solid #4A3267;
   border-radius: 4px;
   -webkit-appearance: none;
@@ -116,56 +92,56 @@ select {
 
 /* Dropdown seçenekleri */
 select option {
-  background: #F7B9C4 !important; /* Açık pembe */
-  color: #000000 !important; /* Siyah yazı */
+  background: #F7B9C4; /* Açık pembe */
+  color: #000000;
   text-align: left; /* Burç seçenekleri sola yaslı */
 }
 
 /* İlk seçenek ("Burcunuzu Seçiniz") */
 select option[value=""] {
-  background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* Koyu mor-açık morlu pembe */
+  background: linear-gradient(135deg, #4A3267, #C6BADE); /* Koyu mor-açık morlu pembe */
   text-align: center; /* "Burcunuzu Seçiniz" ortalı */
 }
 
-/* Dropdown hover rengi */
+/* Dropdown hover rengi - NOT: Tarayıcı desteği sınırlı, özel dropdown için JS önerilir */
 select option:hover {
-  background-color: #DE638A !important; /* Pembe */
-  color: #FFFFFF !important; /* Beyaz metin */
-  -webkit-text-fill-color: #FFFFFF !important; /* Safari için */
+  background-color: #DE638A;
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
 }
 
 /* Seçili seçenek */
 select option:checked {
-  background: #F7B9C4 !important; /* Açık pembe (menüyle aynı) */
-  color: #000000 !important; /* Siyah yazı */
+  background: #F7B9C4;
+  color: #000000;
 }
 
 /* Safari ve diğer tarayıcılar için fallback */
 @supports (-webkit-appearance: none) {
   select option {
-    background: #F7B9C4 !important; /* Açık pembe fallback */
-    color: #000000 !important; /* Siyah yazı */
-    text-align: left; /* Burç seçenekleri sola yaslı */
+    background: #F7B9C4;
+    color: #000000;
+    text-align: left;
   }
   select option[value=""] {
-    background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* İlk seçenek gradient */
-    text-align: center; /* "Burcunuzu Seçiniz" ortalı */
+    background: linear-gradient(135deg, #4A3267, #C6BADE);
+    text-align: center;
   }
   select option:checked {
-    background: #F7B9C4 !important; /* Açık pembe */
-    color: #000000 !important; /* Siyah yazı */
+    background: #F7B9C4;
+    color: #000000;
   }
   select option:hover {
-    background-color: #DE638A !important; /* Pembe */
-    color: #FFFFFF !important; /* Beyaz metin */
-    -webkit-text-fill-color: #FFFFFF !important; /* Safari için */
+    background-color: #DE638A;
+    color: #FFFFFF;
+    -webkit-text-fill-color: #FFFFFF;
   }
 }
 
 /* Butonlar: Tek renk açık morlu pembe */
 button {
   background: #C6BADE; /* Açık morlu pembe */
-  color: #000000 !important; /* Siyah metin */
+  color: #000000;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -193,15 +169,13 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #4A3267; /* Koyu mor */
-  color: #e0e0e0 !important;
+  color: #e0e0e0;
   padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
   animation: fadeInOut 3s ease forwards;
   text-align: center;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Toast animasyonu */
@@ -221,9 +195,6 @@ button:hover {
   height: 24px;
   animation: spin 1s linear infinite;
   margin: 10px auto;
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 @keyframes spin {
@@ -239,9 +210,6 @@ button:hover {
   align-items: stretch;
   grid-auto-rows: 1fr;
   max-width: 100%;
-  visibility: visible;
-  opacity: 1;
-  z-index: 2;
 }
 
 /* Masaüstü (>=1024px): butonla hizalı */
@@ -270,16 +238,14 @@ button:hover {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #FFFFFF !important; /* Beyaz metin */
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  z-index: 2;
+  background: linear-gradient(135deg, #4A3267, #C6BADE), #1f2937;
+  color: #FFFFFF;
+  margin-top: 15px;
 }
 
 /* .result içindeki metinler */
 .result h2, .result p, .result .stats {
-  color: #FFFFFF !important; /* Beyaz metin */
+  color: #FFFFFF;
 }
 
 /* .result hover */
@@ -291,10 +257,7 @@ button:hover {
 .stats {
   margin-top: 10px;
   font-size: 1.1em;
-  color: #FFFFFF !important; /* Beyaz metin (.result için) */
-  display: block;
-  visibility: visible;
-  opacity: 1;
+  color: #FFFFFF; /* Beyaz metin (.result için) */
 }
 
 /* Başlık (emoji + isim hizalaması) */
@@ -305,16 +268,14 @@ button:hover {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
-  color: #e0e0e0 !important; /* Açık gri (.card için) */
-  visibility: visible;
-  opacity: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  color: #e0e0e0; /* Açık gri (.card için) */
   margin-bottom: 10px; /* Burç adı-tarih ile yorum arasında boşluk */
 }
 
 /* .result içindeki card-title için beyaz metin */
 .result .card-title {
-  color: #FFFFFF !important; /* Beyaz metin */
+  color: #FFFFFF;
 }
 
 /* Emoji biraz daha büyük görünsün */
@@ -334,10 +295,8 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  z-index: 2;
-  color: #e0e0e0 !important; /* Açık gri (.card için) */
-  visibility: visible;
-  opacity: 1;
+  background: linear-gradient(135deg, #4A3267, #C6BADE), #1f2937;
+  color: #e0e0e0; /* Açık gri (.card için) */
 }
 
 /* Mobilde daha kompakt */
@@ -371,8 +330,6 @@ button:hover {
 .grid .card {
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Kartların sırayla gelmesi için delay */
@@ -396,26 +353,18 @@ button:hover {
   justify-content: center;
   flex-wrap: wrap;
   margin: 10px 0;
-  visibility: visible;
-  opacity: 1;
 }
 
 .circle {
   position: relative;
   width: 90px;
   height: 90px;
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 .circle svg {
   transform: rotate(-90deg);
   width: 90px;
   height: 90px;
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 .circle circle {
@@ -439,22 +388,20 @@ button:hover {
   transform: translate(-50%, -50%);
   font-size: 1em;
   font-weight: bold;
-  color: #e0e0e0 !important; /* Açık gri (.card için) */
+  color: #e0e0e0; /* Açık gri (.card için) */
   text-align: center;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* .result içindeki label için beyaz metin */
 .result .circle .label {
-  color: #FFFFFF !important; /* Beyaz metin */
+  color: #FFFFFF;
 }
 
 .circle.love { --stroke-color: #ff4d6d; }
 .circle.money { --stroke-color: #4CAF50; }
 .circle.health { --stroke-color: #00bcd4; }
 
-/* Mobil için circular stats */
+/* Mobil için circular stats ve hafif shadow */
 @media (max-width: 767px) {
   .circle {
     width: 80px;
@@ -472,6 +419,9 @@ button:hover {
   .circle .label {
     font-size: 0.9em;
   }
+  .card, .result {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Hafif shadow mobil için */
+  }
 }
 
 /* Yorum metni için hizalama */
@@ -479,14 +429,11 @@ button:hover {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1em;
-  color: #e0e0e0 !important; /* Açık gri (.card için) */
-  display: block;
-  visibility: visible;
-  opacity: 1;
+  color: #e0e0e0; /* Açık gri (.card için) */
 }
 
 /* .result içindeki paragraf için beyaz metin ve boşluk */
 .result p {
-  color: #FFFFFF !important; /* Beyaz metin */
+  color: #FFFFFF;
   margin-top: 10px; /* Başlık-yorum arası boşluk */
 }
