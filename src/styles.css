@@ -1,4 +1,4 @@
-/* styles.css - Dropdown hover düzeltmesi: arka plan #DE638A, metin beyaz, tarayıcı uyumluluğu güçlendirildi */
+/* styles.css - Dropdown: "Burcunuzu Seçiniz" ve seçili burç ortalı, diğer seçenekler sola yaslı, hover #DE638A */
 
 /* Temel: Tarayıcı varsayılanlarını sıfırla */
 * {
@@ -111,17 +111,20 @@ select {
   -moz-appearance: none;
   appearance: none;
   cursor: pointer;
+  text-align: center; /* Seçili burç ve "Burcunuzu Seçiniz" ortalı */
 }
 
 /* Dropdown seçenekleri */
 select option {
   background: #F7B9C4 !important; /* Açık pembe */
   color: #000000 !important; /* Siyah yazı */
+  text-align: left; /* Burç seçenekleri sola yaslı */
 }
 
 /* İlk seçenek ("Burcunuzu Seçiniz") */
 select option[value=""] {
   background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* Koyu mor-açık morlu pembe */
+  text-align: center; /* "Burcunuzu Seçiniz" ortalı */
 }
 
 /* Dropdown hover rengi */
@@ -142,9 +145,11 @@ select option:checked {
   select option {
     background: #F7B9C4 !important; /* Açık pembe fallback */
     color: #000000 !important; /* Siyah yazı */
+    text-align: left; /* Burç seçenekleri sola yaslı */
   }
   select option[value=""] {
     background: linear-gradient(135deg, #4A3267, #C6BADE) !important; /* İlk seçenek gradient */
+    text-align: center; /* "Burcunuzu Seçiniz" ortalı */
   }
   select option:checked {
     background: #F7B9C4 !important; /* Açık pembe */
