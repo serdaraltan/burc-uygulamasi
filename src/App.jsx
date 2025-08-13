@@ -12,18 +12,18 @@ function App() {
   console.log('State:', { sign, horoscope, allHoroscopes, loading, error });
 
   const signs = [
-    { value: 'aries', label: 'Koç', icon: '♈' },
-    { value: 'taurus', label: 'Boğa', icon: '♉' },
-    { value: 'gemini', label: 'İkizler', icon: '♊' },
-    { value: 'cancer', label: 'Yengeç', icon: '♋' },
-    { value: 'leo', label: 'Aslan', icon: '♌' },
-    { value: 'virgo', label: 'Başak', icon: '♍' },
-    { value: 'libra', label: 'Terazi', icon: '♎' },
-    { value: 'scorpio', label: 'Akrep', icon: '♏' },
-    { value: 'sagittarius', label: 'Yay', icon: '♐' },
-    { value: 'capricorn', label: 'Oğlak', icon: '♑' },
-    { value: 'aquarius', label: 'Kova', icon: '♒' },
-    { value: 'pisces', label: 'Balık', icon: '♓' }
+    { value: 'koc', label: 'Koç', icon: '♈' },
+    { value: 'boga', label: 'Boğa', icon: '♉' },
+    { value: 'ikizler', label: 'İkizler', icon: '♊' },
+    { value: 'yengec', label: 'Yengeç', icon: '♋' },
+    { value: 'aslan', label: 'Aslan', icon: '♌' },
+    { value: 'basak', label: 'Başak', icon: '♍' },
+    { value: 'terazi', label: 'Terazi', icon: '♎' },
+    { value: 'akrep', label: 'Akrep', icon: '♏' },
+    { value: 'yay', label: 'Yay', icon: '♐' },
+    { value: 'oglak', label: 'Oğlak', icon: '♑' },
+    { value: 'kova', label: 'Kova', icon: '♒' },
+    { value: 'balik', label: 'Balık', icon: '♓' }
   ];
 
   // Hata mesajını 3 saniye sonra temizle
@@ -55,19 +55,12 @@ function App() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${sign}&day=today`);
+      const res = await fetch(`/api/horoscope?sign=${sign}`);
       console.log('Fetch Horoscope Response:', res.status, res.statusText);
       if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
       console.log('Horoscope Data:', data);
-      setHoroscope({
-        sign: signs.find(s => s.value === sign).label,
-        date: new Date().toISOString(),
-        text: data.data.horoscope_data,
-        love: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
-        money: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
-        health: Math.floor(Math.random() * (100 - 60 + 1)) + 60 // Rastgele %60-100 (API'de yok)
-      });
+      setHoroscope(data);
     } catch (err) {
       setError('Horoskop alınırken hata oluştu: ' + err.message);
       console.error('Fetch error:', err);
@@ -80,22 +73,15 @@ function App() {
     setError(null);
     setLoading(true);
     try {
-      const requests = signs.map(s =>
-        fetch(`https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=${s.value}&day=today`).then(res => {
-          if (!res.ok) throw new Error(`API hatası: ${res.status}`);
-          return res.json().then(data => ({
-            sign: s.label,
-            date: new Date().toISOString(),
-            text: data.data.horoscope_data,
-            love: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
-            money: Math.floor(Math.random() * (100 - 60 + 1)) + 60, // Rastgele %60-100 (API'de yok)
-            health: Math.floor(Math.random() * (100 - 60 + 1)) + 60 // Rastgele %60-100 (API'de yok)
-          }));
-        })
-      );
-      const data = await Promise.all(requests);
+      const res = await fetch(`/api/all`);
+      console.log('Fetch All Horoscopes Response:', res.status, res.statusText);
+      if (!res.ok) throw new Error(`API hatası: ${res.status}`);
+      const data = await res.json();
       console.log('All Horoscopes Data:', data);
-      setAllHoroscopes(data);
+      if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
+        throw new Error('Geçersiz veri formatı');
+      }
+      setAllHoroscopes(data.horoscopes);
     } catch (err) {
       console.error('Tüm burçlar alınırken hata:', err.message);
       setError('Tüm burçlar alınırken hata oluştu: ' + err.message);
