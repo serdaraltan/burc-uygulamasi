@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './styles.css';
-import './i18n'; // src/i18n.js dosyasını import et
+import './i18n';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -53,10 +53,15 @@ function App() {
     }
   }, [error]);
 
-  // Tarih formatlama fonksiyonu: Dil bazlı
+  // Dil değişimini dinle ve UI'yi güncelle
+  useEffect(() => {
+    setSign(''); // Dil değiştiğinde seçili burcu sıfırla
+  }, [i18n.language]);
+
+  // Tarih formatlama fonksiyonu
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return t('invalidDate'); // Çevrilmiş hata
+    if (isNaN(date.getTime())) return t('invalidDate');
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
@@ -67,13 +72,9 @@ function App() {
   // Dil bazlı API URL seçimi
   const getApiUrl = (sign, isAll = false) => {
     if (i18n.language === 'tr') {
-      return isAll 
-        ? 'https://burc-api.onrender.com/api/tum/gunluk' 
-        : `https://burc-api.onrender.com/api/${sign}/gunluk`;
+      return isAll ? '/api/turkce/tum/gunluk' : `/api/turkce/${sign}/gunluk`;
     } else {
-      return isAll 
-        ? 'https://horoscope-free-api.herokuapp.com/?time=today&sign=all' 
-        : `https://horoscope-free-api.herokuapp.com/?time=today&sign=${sign}`;
+      return isAll ? '/api/ingilizce/?time=today&sign=all' : `/api/ingilizce/?time=today&sign=${sign}`;
     }
   };
 
@@ -94,8 +95,15 @@ function App() {
       }
       const data = await res.json();
       console.log('Horoscope Data:', data);
-      // Varsayılan: API response'unun {sign, date, text, love, money, health} formatında olduğunu varsayıyorum
-      setHoroscope(data);
+      // API response'unu mevcut formata uyarla
+      setHoroscope({
+        sign: data.sign || sign,
+        date: data.date || new Date().toISOString(),
+        text: data.text || data.horoscope || 'No comment available',
+        love: data.love || 0,
+        money: data.money || 0,
+        health: data.health || 0
+      });
     } catch (err) {
       setError(t('errorFetch') + ': ' + err.message);
       console.error('Fetch error:', err);
@@ -119,7 +127,14 @@ function App() {
       if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
         throw new Error(t('invalidDataFormat'));
       }
-      setAllHoroscopes(data.horoscopes);
+      // API response'unu mevcut formata uyarla
+      setAllHoroscopes(data.horoscopes.map(h => ({
+        sign: h.sign || '',
+        text: h.text || h.horoscope || 'No comment available',
+        love: h.love || 0,
+        money: h.money || 0,
+        health: h.health || 0
+      })));
     } catch (err) {
       console.error('Tüm burçlar alınırken hata:', err.message);
       setError(t('errorFetchAll') + ': ' + err.message);
@@ -127,6 +142,11 @@ function App() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Dil değiştirme fonksiyonu
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   // Mobil için SVG boyutları
@@ -149,6 +169,11 @@ function App() {
           <span className="star-icon">✨</span>
         </h1>
         <div className="header-date">{today}</div>
+        {/* Dil değiştirme butonları */}
+        <div className="language-switcher">
+          <button onClick={() => changeLanguage('tr')}>Türkçe</button>
+          <button onClick={() => changeLanguage('en')}>English</button>
+        </div>
       </div>
       <div className="form-row">
         <select 
