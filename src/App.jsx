@@ -11,38 +11,38 @@ function App() {
   const [allHoroscopes, setAllHoroscopes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Debug için dil ve API bilgisi
+  // Debug için dil bilgisi
   console.log('Tarayıcı Dili:', navigator.language);
   console.log('i18next Dili:', i18n.resolvedLanguage);
 
   // Dil bazlı burç listesi
   const isTurkish = i18n.resolvedLanguage?.startsWith('tr');
   const signs = isTurkish ? [
-    { value: 'koc', label: 'Koç', icon: '♈' },
-    { value: 'boga', label: 'Boğa', icon: '♉' },
-    { value: 'ikizler', label: 'İkizler', icon: '♊' },
-    { value: 'yengec', label: 'Yengeç', icon: '♋' },
-    { value: 'aslan', label: 'Aslan', icon: '♌' },
-    { value: 'basak', label: 'Başak', icon: '♍' },
-    { value: 'terazi', label: 'Terazi', icon: '♎' },
-    { value: 'akrep', label: 'Akrep', icon: '♏' },
-    { value: 'yay', label: 'Yay', icon: '♐' },
-    { value: 'oglak', label: 'Oğlak', icon: '♑' },
-    { value: 'kova', label: 'Kova', icon: '♒' },
-    { value: 'balik', label: 'Balık', icon: '♓' }
+    { value: 'koc', label: 'Koç', icon: '♈', en: 'aries' },
+    { value: 'boga', label: 'Boğa', icon: '♉', en: 'taurus' },
+    { value: 'ikizler', label: 'İkizler', icon: '♊', en: 'gemini' },
+    { value: 'yengec', label: 'Yengeç', icon: '♋', en: 'cancer' },
+    { value: 'aslan', label: 'Aslan', icon: '♌', en: 'leo' },
+    { value: 'basak', label: 'Başak', icon: '♍', en: 'virgo' },
+    { value: 'terazi', label: 'Terazi', icon: '♎', en: 'libra' },
+    { value: 'akrep', label: 'Akrep', icon: '♏', en: 'scorpio' },
+    { value: 'yay', label: 'Yay', icon: '♐', en: 'sagittarius' },
+    { value: 'oglak', label: 'Oğlak', icon: '♑', en: 'capricorn' },
+    { value: 'kova', label: 'Kova', icon: '♒', en: 'aquarius' },
+    { value: 'balik', label: 'Balık', icon: '♓', en: 'pisces' }
   ] : [
-    { value: 'aries', label: 'Aries', icon: '♈' },
-    { value: 'taurus', label: 'Taurus', icon: '♉' },
-    { value: 'gemini', label: 'Gemini', icon: '♊' },
-    { value: 'cancer', label: 'Cancer', icon: '♋' },
-    { value: 'leo', label: 'Leo', icon: '♌' },
-    { value: 'virgo', label: 'Virgo', icon: '♍' },
-    { value: 'libra', label: 'Libra', icon: '♎' },
-    { value: 'scorpio', label: 'Scorpio', icon: '♏' },
-    { value: 'sagittarius', label: 'Sagittarius', icon: '♐' },
-    { value: 'capricorn', label: 'Capricorn', icon: '♑' },
-    { value: 'aquarius', label: 'Aquarius', icon: '♒' },
-    { value: 'pisces', label: 'Pisces', icon: '♓' }
+    { value: 'aries', label: 'Aries', icon: '♈', en: 'aries' },
+    { value: 'taurus', label: 'Taurus', icon: '♉', en: 'taurus' },
+    { value: 'gemini', label: 'Gemini', icon: '♊', en: 'gemini' },
+    { value: 'cancer', label: 'Cancer', icon: '♋', en: 'cancer' },
+    { value: 'leo', label: 'Leo', icon: '♌', en: 'leo' },
+    { value: 'virgo', label: 'Virgo', icon: '♍', en: 'virgo' },
+    { value: 'libra', label: 'Libra', icon: '♎', en: 'libra' },
+    { value: 'scorpio', label: 'Scorpio', icon: '♏', en: 'scorpio' },
+    { value: 'sagittarius', label: 'Sagittarius', icon: '♐', en: 'sagittarius' },
+    { value: 'capricorn', label: 'Capricorn', icon: '♑', en: 'capricorn' },
+    { value: 'aquarius', label: 'Aquarius', icon: '♒', en: 'aquarius' },
+    { value: 'pisces', label: 'Pisces', icon: '♓', en: 'pisces' }
   ];
 
   // Hata mesajını 3 saniye sonra temizle
@@ -73,12 +73,11 @@ function App() {
 
   // Dil bazlı API URL seçimi
   const getApiUrl = (sign, isAll = false) => {
-    if (isTurkish) {
-      // Ensaryusuf API: Endpoint'i test için alternatif yollarla güncelliyoruz
-      return isAll ? '/api/turkce/tum/gunluk' : `/api/turkce/${sign}/gunluk`;
-    } else {
-      return isAll ? '/api/ingilizce/?time=today&sign=all' : `/api/ingilizce/?time=today&sign=${sign}`;
+    const enSign = signs.find(s => s.value === sign)?.en || sign;
+    if (isAll) {
+      return 'https://aztro.sameerkumar.website/?sign=aquarius,aries,taurus,gemini,cancer,leo,virgo,libra,scorpio,sagittarius,capricorn,pisces&day=today';
     }
+    return `https://aztro.sameerkumar.website/?sign=${enSign}&day=today`;
   };
 
   const fetchHoroscope = async () => {
@@ -94,24 +93,23 @@ function App() {
       console.log('Fetch Horoscope Response:', res.status, res.statusText, res.url);
       if (!res.ok) {
         if (res.status === 404) {
-          throw new Error(t('errorFetch') + ': Endpoint bulunamadı (404). Lütfen API endpoint\'ini kontrol edin.');
+          throw new Error(t('errorFetch') + ': Endpoint bulunamadı (404).');
         }
         const errorData = await res.json();
         throw new Error(errorData.message || `API hatası: ${res.status}`);
       }
       const data = await res.json();
       console.log('Horoscope Data:', data);
-      // Esnek response işleme
       setHoroscope({
         sign: data.sign || sign,
-        date: data.date || new Date().toISOString(),
-        text: data.text || data.yorum || data.horoscope || data.data || 'Yorum mevcut değil',
-        love: data.love || data.ozellikler?.ask || 0,
-        money: data.money || data.ozellikler?.kariyer || 0,
-        health: data.health || data.ozellikler?.saglik || 0
+        date: data.current_date || new Date().toISOString(),
+        text: isTurkish ? t(`${data.sign}_description`, { defaultValue: data.description }) : data.description,
+        mood: data.mood || 'Unknown',
+        color: data.color || 'Unknown',
+        lucky_number: data.lucky_number || 'Unknown'
       });
     } catch (err) {
-      setError(err.message);
+      setError(t('errorFetch') + ': ' + err.message);
       console.error('Fetch error:', err);
     } finally {
       setLoading(false);
@@ -126,26 +124,26 @@ function App() {
       console.log('Fetch All Horoscopes Response:', res.status, res.statusText, res.url);
       if (!res.ok) {
         if (res.status === 404) {
-          throw new Error(t('errorFetchAll') + ': Endpoint bulunamadı (404). Lütfen API endpoint\'ini kontrol edin.');
+          throw new Error(t('errorFetchAll') + ': Endpoint bulunamadı (404).');
         }
         const errorData = await res.json();
         throw new Error(errorData.message || `API hatası: ${res.status}`);
       }
       const data = await res.json();
       console.log('All Horoscopes Data:', data);
-      if (!data.horoscopes || !Array.isArray(data.horoscopes)) {
+      if (!Array.isArray(data)) {
         throw new Error(t('invalidDataFormat'));
       }
-      setAllHoroscopes(data.horoscopes.map(h => ({
+      setAllHoroscopes(data.map(h => ({
         sign: h.sign || '',
-        text: h.text || h.yorum || h.horoscope || h.data || 'Yorum mevcut değil',
-        love: h.love || h.ozellikler?.ask || 0,
-        money: h.money || h.ozellikler?.kariyer || 0,
-        health: h.health || h.ozellikler?.saglik || 0
+        text: isTurkish ? t(`${h.sign}_description`, { defaultValue: h.description }) : h.description,
+        mood: h.mood || 'Unknown',
+        color: h.color || 'Unknown',
+        lucky_number: h.lucky_number || 'Unknown'
       })));
     } catch (err) {
       console.error('Tüm burçlar alınırken hata:', err.message);
-      setError(err.message);
+      setError(t('errorFetchAll') + ': ' + err.message);
       setAllHoroscopes([]);
     } finally {
       setLoading(false);
@@ -217,11 +215,11 @@ function App() {
           <h2 className="card-title">{horoscope.sign} - {formatDate(horoscope.date)}</h2>
           <p>{horoscope.text}</p>
           <div className="stats">
-            ❤️ {t('love')}: {horoscope.love}%
+            😊 {t('mood')}: {horoscope.mood}
             <br />
-            💰 {t('money')}: {horoscope.money}%
+            🎨 {t('color')}: {horoscope.color}
             <br />
-            💪 {t('health')}: {horoscope.health}%
+            🔢 {t('lucky_number')}: {horoscope.lucky_number}
           </div>
         </div>
       )}
@@ -240,35 +238,26 @@ function App() {
             >
               <h2 className="card-title">{h.sign}</h2>
               <div className="circular-stats">
-                <div className="circle love">
+                <div className="circle mood">
                   <svg>
                     <circle {...circleProps}></circle>
-                    <circle
-                      {...circleProps}
-                      style={{ '--percent': h.love }}
-                    ></circle>
+                    <circle {...circleProps}></circle>
                   </svg>
-                  <div className="label">❤️ {h.love}% ({t('love')})</div>
+                  <div className="label">😊 {h.mood} ({t('mood')})</div>
                 </div>
-                <div className="circle money">
+                <div className="circle color">
                   <svg>
                     <circle {...circleProps}></circle>
-                    <circle
-                      {...circleProps}
-                      style={{ '--percent': h.money }}
-                    ></circle>
+                    <circle {...circleProps}></circle>
                   </svg>
-                  <div className="label">💰 {h.money}% ({t('money')})</div>
+                  <div className="label">🎨 {h.color} ({t('color')})</div>
                 </div>
-                <div className="circle health">
+                <div className="circle lucky_number">
                   <svg>
                     <circle {...circleProps}></circle>
-                    <circle
-                      {...circleProps}
-                      style={{ '--percent': h.health }}
-                    ></circle>
+                    <circle {...circleProps}></circle>
                   </svg>
-                  <div className="label">💪 {h.health}% ({t('health')})</div>
+                  <div className="label">🔢 {h.lucky_number} ({t('lucky_number')})</div>
                 </div>
               </div>
               <p>{h.text}</p>

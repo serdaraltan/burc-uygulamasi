@@ -5,10 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/turkce': {
-        target: 'https://burc-api.onrender.com',
+      '/api/aztro': {
+        target: 'https://aztro.sameerkumar.website',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/turkce/, '')
+        rewrite: (path) => path.replace(/^\/api\/aztro/, '')
       },
       '/api/ingilizce': {
         target: 'https://horoscope-free-api.herokuapp.com',

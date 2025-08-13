@@ -17,7 +17,10 @@ const resources = {
       invalidDataFormat: 'Invalid data format',
       love: 'Love',
       money: 'Money',
-      health: 'Health'
+      health: 'Health',
+      mood: 'Mood',
+      color: 'Color',
+      lucky_number: 'Lucky Number'
     }
   },
   tr: {
@@ -34,7 +37,14 @@ const resources = {
       invalidDataFormat: 'Geçersiz veri formatı',
       love: 'Aşk',
       money: 'Para',
-      health: 'Sağlık'
+      health: 'Sağlık',
+      mood: 'Ruh Hali',
+      color: 'Renk',
+      lucky_number: 'Şanslı Numara',
+      // Örnek statik çeviriler (API'den gelen metni Türkçeleştirmek için)
+      aries_description: 'Bugün Koç için enerji dolu bir gün...',
+      taurus_description: 'Boğa, sabırlı olman gereken bir gün...',
+      // Diğer burçlar için çeviriler eklenebilir
     }
   }
 };
@@ -46,7 +56,7 @@ i18n
     resources,
     fallbackLng: 'tr',
     detection: {
-      order: ['navigator', 'querystring'], // Cookie ve localStorage devre dışı
+      order: ['navigator', 'querystring'],
       lookupQuerystring: 'lng',
     },
     interpolation: {
