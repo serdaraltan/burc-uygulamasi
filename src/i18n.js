@@ -46,8 +46,8 @@ i18n
     resources,
     fallbackLng: 'tr',
     detection: {
-      order: ['navigator', 'querystring', 'cookie', 'localStorage'],
-      caches: ['cookie']
+      order: ['navigator', 'querystring'], // Cookie ve localStorage devre dışı
+      lookupQuerystring: 'lng',
     },
     interpolation: {
       escapeValue: false

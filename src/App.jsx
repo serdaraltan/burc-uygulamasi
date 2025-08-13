@@ -11,11 +11,13 @@ function App() {
   const [allHoroscopes, setAllHoroscopes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // State kontrolü için log
-  console.log('State:', { sign, horoscope, allHoroscopes, loading, error });
+  // Debug için dil bilgisi
+  console.log('Tarayıcı Dili:', navigator.language);
+  console.log('i18next Dili:', i18n.language, 'Resolved:', i18n.resolvedLanguage);
 
   // Dil bazlı burç listesi
-  const signs = i18n.language === 'tr' ? [
+  const isTurkish = i18n.resolvedLanguage?.startsWith('tr');
+  const signs = isTurkish ? [
     { value: 'koc', label: 'Koç', icon: '♈' },
     { value: 'boga', label: 'Boğa', icon: '♉' },
     { value: 'ikizler', label: 'İkizler', icon: '♊' },
@@ -56,7 +58,7 @@ function App() {
   // Dil değişimini dinle ve UI'yi güncelle
   useEffect(() => {
     setSign(''); // Dil değiştiğinde seçili burcu sıfırla
-  }, [i18n.language]);
+  }, [i18n.resolvedLanguage]);
 
   // Tarih formatlama fonksiyonu
   const formatDate = (dateStr) => {
@@ -65,13 +67,13 @@ function App() {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
-    const dayName = date.toLocaleDateString(i18n.language, { weekday: 'long' });
+    const dayName = date.toLocaleDateString(i18n.resolvedLanguage || 'tr', { weekday: 'long' });
     return `${day}.${month}.${year} (${dayName})`;
   };
 
   // Dil bazlı API URL seçimi
   const getApiUrl = (sign, isAll = false) => {
-    if (i18n.language === 'tr') {
+    if (isTurkish) {
       return isAll ? '/api/turkce/tum/gunluk' : `/api/turkce/${sign}/gunluk`;
     } else {
       return isAll ? '/api/ingilizce/?time=today&sign=all' : `/api/ingilizce/?time=today&sign=${sign}`;
