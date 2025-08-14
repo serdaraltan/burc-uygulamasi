@@ -5,15 +5,15 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/aztro': {
+      '/api/horoscope': {
         target: 'https://aztro.sameerkumar.website',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/aztro/, '')
+        rewrite: (path) => path.replace(/^\/api\/horoscope/, '')
       },
-      '/api/ingilizce': {
-        target: 'https://horoscope-free-api.herokuapp.com',
+      '/api/all': {
+        target: 'https://aztro.sameerkumar.website',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/ingilizce/, '')
+        rewrite: (path) => path.replace(/^\/api\/all/, '')
       }
     }
   },
