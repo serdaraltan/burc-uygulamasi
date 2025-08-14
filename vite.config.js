@@ -5,9 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // Lokal API endpoint'leri için proxy tanımla
       '/api/horoscope': {
-        target: 'http://localhost:5173', // Vite geliştirme sunucusu
+        target: 'http://localhost:5173',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/horoscope/, '/api')
       },

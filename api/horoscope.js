@@ -12,33 +12,34 @@ const DISPLAY = {
 };
 
 const COLORS = {
-  koc: "#FF6B6B",     // kırmızı
-  boga: "#6BCB77",    // yeşil
-  ikizler: "#4D96FF", // mavi
-  yengec: "#FFD93D",  // sarı
-  aslan: "#FF914D",   // turuncu
-  basak: "#9D84B7",   // mor
-  terazi: "#FFB4B4",  // pembe
-  akrep: "#8E44AD",   // koyu mor
-  yay: "#F39C12",     // altın sarısı
-  oglak: "#95A5A6",   // gri
-  kova: "#00CEC9",    // turkuaz
-  balik: "#74B9FF"    // açık mavi
+  koc: "#FF6B6B", boga: "#6BCB77", ikizler: "#4D96FF", yengec: "#FFD93D",
+  aslan: "#FF914D", basak: "#9D84B7", terazi: "#FFB4B4", akrep: "#8E44AD",
+  yay: "#F39C12", oglak: "#95A5A6", kova: "#00CEC9", balik: "#74B9FF"
 };
 
-function normalizeSign(s){
-  return s.toLowerCase()
-    .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ş/g,'s')
-    .replace(/ı/g,'i').replace(/ö/g,'o').replace(/ü/g,'u')
-    .replace(/[^a-z]/g,'');
-}
-
 const TEMPLATES = [
-  "Bugün enerji seviyen yüksek. {focus} üzerinde yoğunlaş.",
-  "İlişkilerde beklenmedik fırsatlar var. {advice}",
-  "Kariyer alanında küçük ama önemli bir adım atabilirsin. {focus}",
-  "Bugün sakin kalmaya çalış; acele kararlar seni yormasın. {advice}",
-  "Yeni bir fikir ilham verebilir. Yaratıcı projelere zaman ayır."
+  "Bugün enerji seviyen yüksek, {focus} üzerinde yoğunlaş.",
+  "İlişkilerde beklenmedik fırsatlar var, {advice}",
+  "Kariyer alanında küçük ama önemli bir adım atabilirsin, {focus}",
+  "Bugün sakin kalmaya çalış; acele kararlar seni yormasın, {advice}",
+  "Yeni bir fikir ilham verebilir. Yaratıcı projelere zaman ayır.",
+  "Finansal açıdan beklenmedik bir durumla karşılaşabilirsin, {advice}",
+  "Sağlığını ihmal etme, kendine zaman ayırmayı unutma.",
+  "Sosyal ilişkilerin ön planda. Eski dostlarla bağlantı kur.",
+  "Yaratıcılığın zirvede. Sanatsal aktivitelere yönel.",
+  "Duygusal dalgalanmalar yaşayabilirsin. Dengeyi korumaya çalış."
+];
+
+const focuses = ["iş", "ilişkiler", "sağlık", "finans", "kişisel gelişim", "aile"];
+const advices = [
+  "bir konuda sorumluluk al",
+  "dinlemeye daha çok vakit ayır",
+  "küçük bir yatırım düşün",
+  "yürüyüşe çık ve zihnini temizle",
+  "eski bir bağlantıyı canlandır",
+  "kendine zaman ayır",
+  "riskli kararlardan kaçın",
+  "yaratıcı yönünü ortaya çıkar"
 ];
 
 function seededRandom(seed) {
@@ -51,30 +52,23 @@ export function generateHoroscope(key, dateStr) {
   const seed = `${dateStr}|${key}`;
   const r = seededRandom(seed);
   const template = TEMPLATES[Math.floor(r * TEMPLATES.length)];
-
-  const focuses = ["iş", "ilişkiler", "sağlık", "finans", "kişisel gelişim"];
-  const advices = [
-    "bir konuda sorumluluk al",
-    "dinlemeye daha çok vakit ayır",
-    "küçük bir yatırım düşün",
-    "yürüyüşe çık ve zihnini temizle",
-    "eski bir bağlantıyı canlandır"
-  ];
   const focus = focuses[Math.floor(seededRandom(seed + "|f") * focuses.length)];
   const advice = advices[Math.floor(seededRandom(seed + "|a") * advices.length)];
 
   let text = template.replace("{focus}", focus).replace("{advice}", advice);
 
-  // Şans yüzdeleri
   const love = Math.floor(seededRandom(seed + "|love") * 101);
   const money = Math.floor(seededRandom(seed + "|money") * 101);
   const health = Math.floor(seededRandom(seed + "|health") * 101);
 
   return { 
-    text, 
-    love, 
-    money, 
-    health 
+    sign: DISPLAY[key] || key,
+    date: dateStr,
+    text,
+    love,
+    money,
+    health,
+    color: COLORS[key]
   };
 }
 
@@ -87,16 +81,15 @@ export default function handler(req, res) {
   }
 
   const now = new Date();
-  const dateStr = now.toISOString().slice(0,10);
-  const { text, love, money, health } = generateHoroscope(key, dateStr);
+  const dateStr = now.toISOString().split('T')[0];
+  const horoscope = generateHoroscope(key, dateStr);
 
-  res.status(200).json({
-    sign: DISPLAY[key] || key,
-    date: dateStr,
-    text,
-    love,
-    money,
-    health,
-    color: COLORS[key]
-  });
+  res.status(200).json(horoscope);
+}
+
+function normalizeSign(s){
+  return s.toLowerCase()
+    .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ş/g,'s')
+    .replace(/ı/g,'i').replace(/ö/g,'o').replace(/ü/g,'u')
+    .replace(/[^a-z]/g,'');
 }

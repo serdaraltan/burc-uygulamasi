@@ -10,7 +10,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Ekran boyutunu dinle
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -33,7 +32,6 @@ function App() {
     { value: 'balik', label: 'Balık', icon: '♓' }
   ];
 
-  // Hata mesajını 3 saniye sonra temizle
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
@@ -43,7 +41,6 @@ function App() {
     }
   }, [error]);
 
-  // Tarih formatlama fonksiyonu
   const formatDate = (date) => {
     if (date instanceof Date) {
       return date.toLocaleDateString('tr-TR', { 
@@ -61,14 +58,12 @@ function App() {
     });
   };
 
-  // Circle props'ları
   const circleProps = {
     cx: isMobile ? '40' : '45',
     cy: isMobile ? '40' : '45',
     r: isMobile ? '34' : '38'
   };
 
-  // Tek bir burç yorumu getir
   const fetchHoroscope = async () => {
     setError(null);
     setHoroscope(null);
@@ -102,7 +97,6 @@ function App() {
     }
   };
 
-  // Tüm burçları getir
   const getAllHoroscopes = useCallback(async () => {
     if (allHoroscopes.length > 0) return;
     
@@ -131,7 +125,6 @@ function App() {
     }
   }, [allHoroscopes]);
 
-  // Bugünün tarihi
   const today = formatDate(new Date());
 
   return (
@@ -144,7 +137,6 @@ function App() {
         </h1>
         <div className="header-date">{today}</div>
         
-        {/* Burç ikonları */}
         <div className="zodiac-icons">
           {signs.map(s => (
             <span key={s.value} style={{ fontSize: '1.8em' }}>
