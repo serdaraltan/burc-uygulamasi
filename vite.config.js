@@ -5,19 +5,19 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/horoscope': {
+      // Aztro API için
+      '/api/aztro': {
         target: 'https://aztro.sameerkumar.website',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/horoscope/, '')
+        rewrite: (path) => path.replace(/^\/api\/aztro/, '')
       },
+      
+      // Tüm burçlar için alternatif API
       '/api/all': {
-        target: 'https://aztro.sameerkumar.website',
+        target: 'https://horoscope-app-api.vercel.app/api/v1',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/all/, '')
       }
     }
-  },
-  optimizeDeps: {
-    include: ['react-i18next', 'i18next', 'i18next-browser-languagedetector']
   }
 });
