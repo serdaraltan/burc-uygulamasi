@@ -19,11 +19,11 @@ const COLORS = {
 
 const TEMPLATES = [
   "Bugün enerji seviyen yüksek, {focus} üzerinde yoğunlaş.",
-  "İlişkilerde beklenmedik fırsatlar var, {advice}",
-  "Kariyer alanında küçük ama önemli bir adım atabilirsin, {focus}",
-  "Bugün sakin kalmaya çalış; acele kararlar seni yormasın, {advice}",
+  "İlişkilerde beklenmedik fırsatlar var, {advice}.",
+  "Kariyer alanında küçük ama önemli bir adım atabilirsin, {focus} üzerine yoğunlaş.",
+  "Bugün sakin kalmaya çalış; acele kararlar seni yormasın, {advice}.",
   "Yeni bir fikir ilham verebilir. Yaratıcı projelere zaman ayır.",
-  "Finansal açıdan beklenmedik bir durumla karşılaşabilirsin, {advice}",
+  "Finansal açıdan beklenmedik bir durumla karşılaşabilirsin, {advice}.",
   "Sağlığını ihmal etme, kendine zaman ayırmayı unutma.",
   "Sosyal ilişkilerin ön planda. Eski dostlarla bağlantı kur.",
   "Yaratıcılığın zirvede. Sanatsal aktivitelere yönel.",
