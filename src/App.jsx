@@ -44,9 +44,19 @@ function App() {
   }, [error]);
 
   // Tarih formatlama fonksiyonu: Gün Adı, Gün Ay
-  const formatDate = (dateStr) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('tr-TR', { 
+  const formatDate = (date) => {
+    // Eğer date zaten Date nesnesiyse direkt kullan
+    if (date instanceof Date) {
+      return date.toLocaleDateString('tr-TR', { 
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+      });
+    }
+    
+    // String gelirse Date nesnesine çevir
+    const dateObj = date ? new Date(date) : new Date();
+    return dateObj.toLocaleDateString('tr-TR', { 
       weekday: 'long',
       day: 'numeric',
       month: 'long'
@@ -72,7 +82,12 @@ function App() {
       const res = await fetch(`/api/horoscope?sign=${sign}`);
       if (!res.ok) throw new Error(`API hatası: ${res.status}`);
       const data = await res.json();
-      setHoroscope({ ...data, date: formatDate(data.current_date) });
+      
+      // API'den gelen current_date kullan ve formatla
+      setHoroscope({ 
+        ...data, 
+        date: formatDate(data.current_date) 
+      });
     } catch (err) {
       setError('Horoskop alınırken hata oluştu: ' + err.message);
     } finally {
@@ -109,7 +124,7 @@ function App() {
     }
   }, [allHoroscopes]);
 
-  // Bugünün tarihi
+  // Bugünün tarihi - her seferinde yeni tarih oluştur
   const today = formatDate(new Date());
 
   return (
