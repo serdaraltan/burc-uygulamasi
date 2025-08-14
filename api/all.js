@@ -1,4 +1,4 @@
-import { generateHoroscope } from './horoscope';
+import { generateHoroscope } from './horoscope.js';
 
 const SIGNS = [
   "koc","boga","ikizler","yengec","aslan","basak",
