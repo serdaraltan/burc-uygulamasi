@@ -11,27 +11,29 @@ const DISPLAY = {
   yay: "♐ Yay", oglak: "♑ Oğlak", kova: "♒ Kova", balik: "♓ Balık"
 };
 
-const COLORS = {
-  koc: "#FF6B6B", boga: "#6BCB77", ikizler: "#4D96FF", yengec: "#FFD93D",
-  aslan: "#FF914D", basak: "#9D84B7", terazi: "#FFB4B4", akrep: "#8E44AD",
-  yay: "#F39C12", oglak: "#95A5A6", kova: "#00CEC9", balik: "#74B9FF"
-};
-
 const TEMPLATES = [
   "Bugün enerji seviyen yüksek. {focus} üzerinde yoğunlaş.",
   "İlişkilerde beklenmedik fırsatlar var. {advice}",
   "Kariyer alanında küçük ama önemli bir adım atabilirsin. {focus}",
   "Bugün sakin kalmaya çalış; acele kararlar seni yormasın. {advice}",
-  "Yeni bir fikir ilham verebilir. Yaratıcı projelere zaman ayır."
+  "Yeni bir fikir ilham verebilir. Yaratıcı projelere zaman ayır.",
+  "Finansal açıdan beklenmedik bir durumla karşılaşabilirsin. {advice}",
+  "Sağlığını ihmal etme, kendine zaman ayırmayı unutma.",
+  "Sosyal ilişkilerin ön planda. Eski dostlarla bağlantı kur.",
+  "Yaratıcılığın zirvede. Sanatsal aktivitelere yönel.",
+  "Duygusal dalgalanmalar yaşayabilirsin. Dengeyi korumaya çalış."
 ];
 
-const focuses = ["iş", "ilişkiler", "sağlık", "finans", "kişisel gelişim"];
+const focuses = ["iş", "ilişkiler", "sağlık", "finans", "kişisel gelişim", "aile"];
 const advices = [
   "bir konuda sorumluluk al",
   "dinlemeye daha çok vakit ayır",
   "küçük bir yatırım düşün",
   "yürüyüşe çık ve zihnini temizle",
-  "eski bir bağlantıyı canlandır"
+  "eski bir bağlantıyı canlandır",
+  "kendine zaman ayır",
+  "riskli kararlardan kaçın",
+  "yaratıcı yönünü ortaya çıkar"
 ];
 
 function seededRandom(seed) {
@@ -49,22 +51,36 @@ function generateHoroscope(key, dateStr) {
 
   let text = template.replace("{focus}", focus).replace("{advice}", advice);
 
+  // Şans yüzdeleri
   const love = Math.floor(seededRandom(seed + "|love") * 101);
   const money = Math.floor(seededRandom(seed + "|money") * 101);
   const health = Math.floor(seededRandom(seed + "|health") * 101);
 
   return { 
-    sign: DISPLAY[key],
+    sign: DISPLAY[key] || key,
+    date: dateStr, // Tarih bilgisini ekliyoruz
     text,
     love,
     money,
-    health,
-    color: COLORS[key]
+    health
   };
 }
 
 export default function handler(req, res) {
-  const dateStr = new Date().toISOString().slice(0, 10);
-  const allHoroscopes = SIGNS.map(key => generateHoroscope(key, dateStr));
-  res.status(200).json({ date: dateStr, horoscopes: allHoroscopes });
+  try {
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD formatında tarih
+    
+    // Tüm burçlar için yorum oluştur
+    const allHoroscopes = SIGNS.map(key => 
+      generateHoroscope(key, dateStr)
+    );
+
+    res.status(200).json(allHoroscopes);
+  } catch (error) {
+    console.error('Tüm burçlar alınırken hata:', error);
+    res.status(500).json({ 
+      error: 'Sunucu hatası: ' + error.message 
+    });
+  }
 }

@@ -10,22 +10,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Burç eşleme tablosu (Türkçe -> İngilizce)
-  const signMap = {
-    koc: "aries",
-    boga: "taurus",
-    ikizler: "gemini",
-    yengec: "cancer",
-    aslan: "leo",
-    basak: "virgo",
-    terazi: "libra",
-    akrep: "scorpio",
-    yay: "sagittarius",
-    oglak: "capricorn",
-    kova: "aquarius",
-    balik: "pisces"
-  };
-
   // Ekran boyutunu dinle
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -97,32 +81,17 @@ function App() {
     setLoading(true);
     
     try {
-      // Aztro API'ye POST isteği
-      const response = await fetch('/api/aztro', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          sign: signMap[sign],
-          day: 'today'
-        })
-      });
-
+      const response = await fetch(`/api/horoscope?sign=${sign}`);
+      
       if (!response.ok) {
         throw new Error(`API hatası: ${response.status}`);
       }
 
       const data = await response.json();
       
-      // API'den gelen veriyi işle
       setHoroscope({
-        sign: signs.find(s => s.value === sign)?.label || signMap[sign],
-        date: formatDate(data.current_date),
-        text: data.description,
-        love: data.compatibility ? parseInt(data.compatibility) : Math.floor(Math.random() * 101),
-        money: data.lucky_number ? parseInt(data.lucky_number) * 10 : Math.floor(Math.random() * 101),
-        health: data.mood ? (data.mood.length * 15) : Math.floor(Math.random() * 101)
+        ...data,
+        date: formatDate(data.date)
       });
       
     } catch (err) {
@@ -142,49 +111,18 @@ function App() {
     setLoading(true);
     
     try {
-      const results = await Promise.all(
-        signs.map(async (signItem) => {
-          try {
-            const response = await fetch('/api/aztro', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                sign: signMap[signItem.value],
-                day: 'today'
-              })
-            });
-
-            if (!response.ok) {
-              throw new Error(`${signItem.label} için hata: ${response.status}`);
-            }
-
-            const data = await response.json();
-            
-            return {
-              sign: signItem.label,
-              date: formatDate(data.current_date),
-              text: data.description,
-              love: data.compatibility ? parseInt(data.compatibility) : Math.floor(Math.random() * 101),
-              money: data.lucky_number ? parseInt(data.lucky_number) * 10 : Math.floor(Math.random() * 101),
-              health: data.mood ? (data.mood.length * 15) : Math.floor(Math.random() * 101)
-            };
-          } catch (err) {
-            console.error(`${signItem.label} için hata:`, err);
-            return {
-              sign: signItem.label,
-              date: formatDate(new Date()),
-              text: "Bu burç için şu an yorum alınamadı. Lütfen daha sonra tekrar deneyin.",
-              love: Math.floor(Math.random() * 101),
-              money: Math.floor(Math.random() * 101),
-              health: Math.floor(Math.random() * 101)
-            };
-          }
-        })
-      );
+      const response = await fetch('/api/all');
       
-      setAllHoroscopes(results);
+      if (!response.ok) {
+        throw new Error(`API hatası: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      setAllHoroscopes(data.map(item => ({
+        ...item,
+        date: formatDate(item.date)
+      })));
       
     } catch (err) {
       setError('Tüm burçlar alınırken hata: ' + err.message);
